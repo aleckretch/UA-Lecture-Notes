@@ -3,6 +3,9 @@
 Holds functions pertaining to the database
 */
 require_once "./config.php";
+
+require_once "./account.php";
+
 class Database
 {
 	/*
@@ -19,9 +22,9 @@ class Database
 		if ( $conn )
 			return $conn;
 
-		$dbName = Config::$DB_NAME;//"SENATE";
-		$dbUser = Config::$DB_USER;//"root";
-		$dbPass = Config::$DB_PASS;//"";
+		$dbName = Config::$DB_NAME;
+		$dbUser = Config::$DB_USER;
+		$dbPass = Config::$DB_PASS;
 		$dbHost = Config::$DB_HOST;
 		$dataSrc = "mysql:host={$dbHost};dbname={$dbName}";
 		try 
@@ -93,6 +96,95 @@ class Database
 		return ( self::hashToken( $token ) === $hashed );
 	}
 
+	/*
+		Inserts a user into the user table in the database.
+		Uses the netID provided as the username.
+		Returns the id of the user that was inserted.
+	*/
+	public static function createUser( $netID )
+	{
+		$username = strtolower( $netID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "INSERT INTO Users( username ) values( :username )" );
+		$stmt->bindParam( "username" , $username );
+		$stmt->execute();	
+		return $conn->lastInsertId();	
+	}
+
+	/*
+		Inserts a course into the course table in the database.
+		Uses the name,semester and instructor provided for the corresponding values in the table.
+		Returns the id of the course that was inserted.
+	*/
+	public static function createCourse( $name, $semester, $instructor )
+	{
+		$args = array( $name, $semester, $instructor );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "INSERT INTO Course( name,semester,instructor ) values( ? , ? , ? )" );
+		$stmt->execute( $args );
+		return $conn->lastInsertId();		
+	}
+
+	/*
+		Inserts an account into the account table in the database.
+		Uses the userID and courseID as the primary key.
+		The accountType is what level of permissions the user has over that course.
+		This should not be used for creating new users, see createUser above.
+		Returns true always.
+	*/
+	public static function createAccount( $userID , $courseID , $accountType )
+	{
+		$args = array( $userID , $courseID , $accountType );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "INSERT INTO Account( userID,courseID,accountType ) values( ? , ? , ? )" );
+		$stmt->execute( $args );
+		return TRUE;
+	}
+
+	/*
+		Inserts a note into the notes table in the database.
+		Uses the arguments provided as values for the corresponding columns in the table.
+		Returns the id of the note that was created.
+	*/
+	public static function createNote( $fileName, $fileType, $lectureDate, $courseID, $uploaderID )
+	{
+		$args = array( $fileType, $fileName, $lectureDate, $courseID, $uploaderID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "INSERT INTO Notes( filetype,filename,lectureDate,uploadDate,courseID,userID ) values( ? , ? , ?, NOW(), ?, ? )" );
+		$stmt->execute( $args );
+		return $conn->lastInsertId();
+	}
+
+	/*
+		Returns the id of the user with the netID provided.
+		Returns -1 if there is no user with that netID.
+	*/
+	public static function getUserId( $netID )
+	{
+		$args = array( strtolower( $netID ) );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT id FROM Users WHERE username=?" );
+		$stmt->execute( $args );
+		$row = $stmt->fetch();
+		if ( !isset( $row[ "id" ] ) )
+		{	
+			return -1;
+		}
+		return $row[ "id" ];
+	}
+
+	/*
+		Returns an array of courses with the searchFor term at the beginning of the name.
+		If no courses match then an empty array is returned.
+	*/
+	public static function searchCourses( $searchFor )
+	{
+		$args = array( $searchFor . "%" );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Course WHERE name LIKE ?" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
 }
 
 ?>

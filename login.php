@@ -1,12 +1,12 @@
 <?php
 require_once "./session.php";
 require_once "./database.php";
+require_once "./config.php";
 
-/*
 //change the address in the string when we have webspace
-$service = urlencode( "http://localhost/asua-senate-website/blog/login.php" );
+$service = urlencode( Config::$NET_LOGIN_URL );
 //The banner string is passed along in the request and shows on the NetID login page
-$banner = urlencode( "ASUA Senate Website" );
+$banner = urlencode( Config::$NET_LOGIN_BANNER );
 
 if ( !isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 {
@@ -37,7 +37,7 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 		or:
 			No\nNot valid
 	*/
-/*
+
 	$response = explode( "\n" , $response );
 	//if the first line of the request is the word yes, then the next line will be the username
 	if ( $response[ 0 ] === "yes" )
@@ -63,13 +63,14 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 	}
 }
 else if ( Session::userLoggedIn() )
-{
-	//TODO: REDIRECT TO BACKEND PAGE
-	header( "Location: admin.php" );
+{	
+	echo "Logged in";
+	//TODO: redirect to other page
+	//header( "Location: admin.php" );
 	exit();
 }
 else
 {
 	die( "Default case reached" );
 }
-*/
+
