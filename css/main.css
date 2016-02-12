@@ -1,23 +1,4 @@
-
-
-@font-face {
-font-family: MiloOT-Bold;
-src: url("/fonts/Milo_OT/MiloOT-Bold.otf");
-}
-
-@font-face {
-font-family: MiloOT-LightIta;
-src: url("/fonts/Milo_OT/MiloOT-LightIta.otf");
-}
-
-
-@font-face {
-font-family: MiloOT-Thin;
-src: url("/fonts/Milo_OT/MiloOT-Thin.otf");
-}
-
- 
-		  .clearfix:after {
+ .clearfix:after {
 			  content: "";
 			  display: table;
 			  clear: both;
@@ -26,7 +7,7 @@ src: url("/fonts/Milo_OT/MiloOT-Thin.otf");
 			  padding: 0;
 			  margin: 0;
 			
-			  background: url(images/image.png);
+			  background: url(/images/image.png);
 	  			background-size:cover;
 			  
 		  }
@@ -200,3 +181,6 @@ src: url("/fonts/Milo_OT/MiloOT-Thin.otf");
 			   white-space: nowrap
 				 
 		  }
+
+ 
+	
