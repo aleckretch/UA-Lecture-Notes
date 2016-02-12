@@ -1,4 +1,27 @@
+<<<<<<< HEAD
  .clearfix:after {
+=======
+
+
+@font-face {
+font-family: MiloOT-Bold;
+src: url("../fonts/Milo_OT/MiloOT-Bold.otf");
+}
+
+@font-face {
+font-family: MiloOT-LightIta;
+src: url("../fonts/Milo_OT/MiloOT-LightIta.otf");
+}
+
+
+@font-face {
+font-family: MiloOT-Thin;
+src: url("../fonts/Milo_OT/MiloOT-Thin.otf");
+}
+
+ 
+		  .clearfix:after {
+>>>>>>> cf05ee2590bde09d42d57b33a21cc3d96ceabc91
 			  content: "";
 			  display: table;
 			  clear: both;
@@ -7,7 +30,11 @@
 			  padding: 0;
 			  margin: 0;
 			
+<<<<<<< HEAD
 			  background: url(/images/image.png);
+=======
+			  background: url("../images/image.png");
+>>>>>>> cf05ee2590bde09d42d57b33a21cc3d96ceabc91
 	  			background-size:cover;
 			  
 		  }
@@ -68,7 +95,7 @@
 		  .description_div{
 			  margin-top:10%;
 			   text-align: center;
-			  //border:1px solid white;
+			  /*border:1px solid white;*/
 		  }
 		  .description_div a{
 			  
@@ -143,7 +170,7 @@
 			  
 		  }
 		  .autoComplete-item{
-			 // height:40px;
+			 /* height:40px;*/
 			   border-bottom:1px solid gray;
 			  cursor: pointer;
 			  position: relative;
@@ -181,6 +208,9 @@
 			   white-space: nowrap
 				 
 		  }
+<<<<<<< HEAD
 
  
 	
+=======
+>>>>>>> cf05ee2590bde09d42d57b33a21cc3d96ceabc91
