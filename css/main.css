@@ -11,9 +11,9 @@
 			  margin: 0;
 			
 
-			  background: url(/images/image.png);
+			  background: url('../images/image.png');
 
-	  			background-size:cover;
+	  	          background-size:cover;
 			  
 		  }
 		  .darken_div{
