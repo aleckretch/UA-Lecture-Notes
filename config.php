@@ -16,6 +16,10 @@ class Config
 
 	public static $NET_LOGIN_URL;
 
+	public static $LOG_TO_FILE;
+
+	public static $ALLOWED_TYPES;
+
 	static function init()
 	{
 		self::$DB_NAME = "LECTURE";
@@ -29,6 +33,10 @@ class Config
 		self::$NET_LOGIN_BANNER = "UA Lecture Notes";
 
 		self::$NET_LOGIN_URL = "http://localhost/UA-Lecture-Notes/login.php";
+
+		self::$LOG_TO_FILE = TRUE;
+
+		self::$ALLOWED_TYPES = array( "application/pdf" => "pdf" );
 	}
 }
 Config::init();

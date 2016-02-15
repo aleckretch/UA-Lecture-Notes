@@ -79,8 +79,8 @@ CREATE TABLE Notes
 	id		int NOT NULL auto_increment primary key,
 	filetype	varchar(100) NOT NULL,
 	filename	varchar(100) NOT NULL,
-	lectureDate	datetime NOT NULL,
-	uploadDate	datetime NOT NULL,
+	lectureDate	DATE NOT NULL,
+	uploadDate	DATE NOT NULL,
 	courseID	int NOT NULL,
 	userID		int NOT NULL,
 	FOREIGN KEY (courseID)
@@ -91,4 +91,10 @@ CREATE TABLE Notes
 	ON DELETE RESTRICT
 );
 
+INSERT INTO Users( id, username ) VALUES( 1, 'djenkins1' );
+INSERT INTO Course( id, name, semester, instructor ) VALUES( 1 , 'CSC 337' , 'Fall 2015' , 'Rick Mercer' );
+INSERT INTO Course( id, name, semester, instructor ) VALUES( 2 , 'CSC 337' , 'Spring 2016' , 'Mark Fischer' );
+INSERT INTO Course( id, name, semester, instructor ) VALUES( 3 , 'CSC 473' , 'Spring 2016' , 'Eric Anson' );
+INSERT INTO Account( userID, courseID , accountType ) VALUES( 1 , 1 , 'instructor' );
+INSERT INTO Account( userID, courseID , accountType ) VALUES( 1 , 2 , 'uploader' );
 

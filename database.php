@@ -36,12 +36,33 @@ class Database
 		} 
 		catch ( PDOException $e ) 
 		{
-			echo "Error establishing Connection<br>";
-			echo "{$e->getMessage()}<br>";
+			self::logError( "Error establishing Connection\n{$e->getMessage()}\n" );
 			exit();
 		}
 
 		return $conn;
+	}
+
+	/*
+		Writes the message provided to the error log.
+		If fail is true(by default), also stops more code from running.
+		If the config constant LOG_TO_FILE is false then the message is displayed to the page as html(sanitized).
+	*/
+	public static function logError( $message, $fail = TRUE )
+	{
+		if ( Config::$LOG_TO_FILE === TRUE )
+		{
+			error_log( $message );
+		}
+		else
+		{
+			echo nl2br( self::sanitizeData( $message ) );
+		}
+		
+		if ( $fail )
+		{
+			exit();
+		}
 	}
 
 	/*
@@ -57,7 +78,7 @@ class Database
 		//	if that is the case, then error out
 		if ( $strong !== true )
 		{
-			echo "Could not generate secure token<br>";
+			self::logError( "Could not generate secure token\n" );
 			exit();			
 		}
 
@@ -85,7 +106,7 @@ class Database
 	*/
 	public static function hashToken( $token )
 	{
-		return hash( "SHA-512" , $token, FALSE );
+		return hash( "sha512" , $token, FALSE );
 	}
 
 	/*
@@ -150,9 +171,22 @@ class Database
 	{
 		$args = array( $fileType, $fileName, $lectureDate, $courseID, $uploaderID );
 		$conn = self::connect();
-		$stmt = $conn->prepare( "INSERT INTO Notes( filetype,filename,lectureDate,uploadDate,courseID,userID ) values( ? , ? , ?, NOW(), ?, ? )" );
+		$stmt = $conn->prepare( "INSERT INTO Notes( filetype,filename,lectureDate,uploadDate,courseID,userID ) values( ? , ? , ?, CURDATE(), ?, ? )" );
 		$stmt->execute( $args );
 		return $conn->lastInsertId();
+	}
+
+	/*
+		Returns the notes uploaded for a specific course given by courseID.
+		Returns an empty array if there are no notes for the course provided.
+	*/
+	public static function getNotesByCourse( $courseID )
+	{
+		$args = array( $courseID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Notes WHERE courseID=?" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
 	}
 
 	/*
@@ -181,9 +215,70 @@ class Database
 	{
 		$args = array( $searchFor . "%" );
 		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Course WHERE name LIKE ?" );
+		$stmt = $conn->prepare( "SELECT * FROM Course WHERE name LIKE ? ORDER BY semester DESC,instructor ASC" );
 		$stmt->execute( $args );
 		return $stmt->fetchAll();
+	}
+
+	/*
+		Returns an array of courses with the searchFor term at the beginning of the instructor's name.
+		If no courses match then an empty array is returned.
+	*/
+	public static function searchCoursesByProfessor( $searchFor )
+	{
+		$args = array( $professor . "%" );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Course WHERE instructor LIKE ? ORDER BY semester DESC,instructor ASC" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Returns an Account object for a specific user/course combination.
+		See account.php for the objects.
+	*/
+	public static function getAccount( $userID, $courseID )
+	{
+		$args = array( $userID, $courseID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT accountType FROM Account WHERE userID=? and courseID=?" );
+		$stmt->execute( $args );
+		$account = $stmt->fetch();
+		$account = ( isset( $account['accountType'] ) ? $account['accountType'] : "" );
+		return Account::factory( $account );
+	}
+
+	/*
+		Returns true if the MIME type provided is an allowed upload type or false otherwise.
+		Uses the config constant ALLOWED_TYPES to determine if the type is allowed.
+	*/
+	public static function verifyFileType( $type )
+	{
+		return ( isset( Config::$ALLOWED_TYPES[ $type ] ) );
+	}
+
+	/*
+		Returns the data of the course with the id provided.
+	*/
+	public static function getCourseByID( $courseID )
+	{
+		$args = array( $courseID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Course WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->fetch();
+	}
+
+	/*
+		Returns the data of the notes file with the id provided.
+	*/
+	public static function getNotesByID( $noteID )
+	{
+		$args = array( $noteID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT accountType FROM Notes WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->fetch();
 	}
 }
 

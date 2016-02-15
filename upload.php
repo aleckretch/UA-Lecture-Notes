@@ -13,7 +13,7 @@
 require_once "./database.php";
 require_once "./session.php";
 
-/*
+
 //if the user is not logged in, do not allow the upload to continue into database
 if ( !Session::userLoggedIn() )
 {
@@ -24,31 +24,31 @@ if ( !Session::userLoggedIn() )
 //if error code is not set on file upload array then do not allow upload to continue into database
 if ( !isset($_FILES['file']['error']) )
 {
-	$message = urlencode( "File not provided" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "File not provided\n" );
 	exit();
 }
 
-if ( !isset( $_POST['title'] ) )
+if ( !isset( $_POST['course'] ) )
 {
-	$message = urlencode( "Title not provided" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "Course not provided\n" );
 	exit();
 }
 
 //if the file was not uploaded correctly then do not allow the upload to continue into database
 if ( $_FILES['file']['error'] !== UPLOAD_ERR_OK )  
 {
-	$message = urlencode( "Upload failed with error {$_FILES['file']['error']}" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "Upload failed with error {$_FILES['file']['error']}\n" );
 	exit();
 }
 
 //if the file uploaded is larger then 20mb don't allow the upload to continue into database
 if ( $_FILES['file']['size'] > 20000000) 
 {
-	$message = urlencode( "Could not upload file, file too large" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "Could not upload file, file too large\n" );
 	exit();
 }
 
@@ -58,29 +58,51 @@ $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $mime = finfo_file( $finfo, $_FILES['file']['tmp_name'] );
 
 //if the mime type is not a PDF file, then ignore the file
-if ( $mime !== "application/pdf" )
+if ( Database::verifyFileType( $mime ) !== TRUE )
 {
-	$message = urlencode( "{$mime} is not PDF" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "{$mime} is not an allowed type.\n" );
 	exit();
 }
 
 if ( !isset( $_POST['token'] ) )
 {
-	$message = urlencode( "Token not passed" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "Token not passed\n" );
+	exit();
+}
+
+if ( !isset( $_POST['date'] ) )
+{
+	//TODO: show error message to user in some form when in production
+	Database::logError( "Lecture date is missing\n" );
 	exit();
 }
 
 if ( !Session::verifyToken( $_POST['token'] ) )
 {
-	$str = urlencode( "Request could not be handled, token does not match" );
-	header( "Location: admin.php?agenda=yes&uploaded={$str}" );
+	//TODO: show error message to user in some form when in production
+	Database::logError( "Request could not be handled, token does not match\n" );
 	exit();
 	
 }
 
-$title = $_POST['title'];
+$course = $_POST['course'];
+$user = Database::getUserId( Session::user() );
+$account = Database::getAccount( $user, $course );
+if ( $account === NULL || $account->canUpload() !== TRUE )
+{
+	//TODO: show error message to user in some form when in production
+	Database::logError( "User does not have permission to upload files for this course.\n" );
+	exit();	
+}
+
+$date = trim($_POST['date']);
+$date = date("Y-m-d", strtotime($date));
+$fileType = Config::$ALLOWED_TYPES[ $mime ];
+$fileName = $_FILES['file']['name'];
+$id = Database::createNote( $fileName, $fileType, $date, $course, $user );
+
 $result = true;
 //if the uploads folder does not exist, create it
 if ( !file_exists( "./uploads" ) )
@@ -91,32 +113,26 @@ if ( !file_exists( "./uploads" ) )
 //if the upload has been created in the past at some point
 if ( $result === true )
 {
-	Database::archiveAllAgendas();
-	//Create a new agenda with title of Test
-	$id = Database::createAgenda( $title );
-	$dir = "./uploads/Agenda{$id}.pdf";
+	$dir = "./uploads/note{$id}.${fileType}";
 	if ( file_exists( $dir ) )
 	{
-		Database::removeAgendaWithID( $id );
-		$message = urlencode( "Cannot upload, file already exists" );
-		header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+		Database::logError( "File with {$id} already exists\n" );
 		exit();
 
 	}
 	
-
 	//move the uploaded file to the uploads folder under the name of its id
 	move_uploaded_file( $_FILES['file']['tmp_name'] , $dir  );
 
 	//change the permissions on the uploaded file in the uploads folder to RW-R--R--
 	chmod( $dir, 0644 );	
-	header( "Location: admin.php?agenda=true&uploaded=yes" );
+
+	header( "Location: index.html" );
 	exit();
 }
 else
 {
-	$message = urlencode( "Failed to create uploads folder" );
-	header( "Location: admin.php?agenda=yes&uploaded={$message}" );
+	Database::logError( "Failed to create uploads folder\n" );
 	exit();
 }
-*/
+

@@ -55,7 +55,7 @@ class Session
 			return false;
 		}
 
-		return ( Database::hashVerify( $_SESSION['token'] , $token ) === true );
+		return ( Database::hashVerify( $token , $_SESSION['token'] ) === true );
 	}
 
 	/*
