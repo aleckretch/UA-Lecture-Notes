@@ -276,7 +276,7 @@ class Database
 	{
 		$args = array( $noteID );
 		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT accountType FROM Notes WHERE id=?" );
+		$stmt = $conn->prepare( "SELECT * FROM Notes WHERE id=?" );
 		$stmt->execute( $args );
 		return $stmt->fetch();
 	}
