@@ -1,0 +1,41 @@
+(*) = Currently being handled
+
+(*)PHP side AJAX handler for course searches(Jamie/Alex)
+
+(*)Populate results from AJAX searching of courses(Jamie/Alex)
+
+(Javascript)
+Clicking on a course that was searched should go to that courses page, use id from results
+
+(Javascript/PHP)
+Convert in_course.html to php file or use AJAX requests with handler for dynamic content
+	upload button with link to backend page, only show up if user can actually upload for that course
+	populate with actual files
+	populate with course name,instructor,semester depending on which course(use id)
+
+(PHP/HTML)
+front end for the back end->
+	adding a course
+	adding account as uploader/instructor for a course
+		If the netID provided is not already in the database then add them to it
+	option to delete notes for a course
+		Need to add this functionality in database api
+
+(HTML/CSS)
+better looking upload page, make similar to course page
+
+(Photoshop)
+(!)Need images for the files in in_course.html
+
+(HTML/CSS)
+(!)Change over from tables to floated divs in in_course.html
+
+(HTML/CSS)
+Make sure the pages are responsive, they need to still look on when browser window small
+
+(HTML/CSS)
+Test the pages in different browsers, look for bugs
+
+
+
+
