@@ -280,6 +280,51 @@ class Database
 		$stmt->execute( $args );
 		return $stmt->fetch();
 	}
+
+	/*
+		Returns the path to the notes file with the id and filetype provided.
+	*/
+	public static function getUploadPath( $id, $filetype )
+	{	
+		return "./uploads/note{$id}.${filetype}";
+	}
+
+	/*
+		Returns the MIME type for the file type provided as searchFor.
+		Only works for filetypes in Config constant Allowed_Types in config.php
+		If the type searched for is not found then the empty string is returned.
+		IMPORTANT: Do not use this to verify the file extension, see verifyFileType function in database.php
+	*/
+	public static function getMimeFromType( $searchFor )
+	{
+		foreach ( Config::$ALLOWED_TYPES as $mime=>$type )
+		{
+			if ( $type === $searchFor )
+			{
+				return $mime;
+			}
+		}
+		return "";
+	}
+
+	/*
+		Returns the basename of the fileName provided, excluding the extension.
+		Replaces any non-alphanumeric characters with underscores, examples . .. /
+		If the fileName does not have an extension then this will still work.
+		IMPORTANT: Do not use the filename provided by users for naming the file on the server.
+			This should only be used for the file name for downloading the file.
+			See getUploadPath function in database.php for the name of the notes file on the server.
+	*/
+	public static function sanitizeFileName( $fileName )
+	{
+		$fileParts = explode( ".", basename( $fileName ) );
+		if ( count( $fileParts ) > 1 )
+		{
+			array_pop( $fileParts );
+			$fileName = end( $fileParts );
+		}
+		return preg_replace('/[^A-Za-z0-9_\-]/', '_', $fileName );
+	}
 }
 
 ?>

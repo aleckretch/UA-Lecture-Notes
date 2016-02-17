@@ -1,43 +1,46 @@
 <?php
 /*
-	This php file acts as an intermediary for anyone to download the agenda files.
-	It also allows us to send back a recommended filename for the pdf to the browser.
+	This php file acts as an intermediary for anyone to download the notes for a course.
+	It also allows us to send back a recommended filename for the file to the browser.
+	This supports whatever file types are supplied in the Config constant Allowed_Types in config.php.
 	
 */
 require_once( "./database.php" );
+require_once( "./config.php" );
+require_once( "./session.php" );
 
 //get the id provided as a get parameter
-/*
-$agenda = Database::getMostRecentAgenda();
-if ( !isset( $agenda[ 'id' ] ) )
+if ( !isset( $_GET['id'] ) )
 {
-	die( "Could not download agenda. <br>File not found." );
-}
-$id = $agenda[ 'id' ];
-
-//if the result from getAgendaFromID is false then the id is invalid
-
-$fileName = "./uploads/Agenda{$id}.pdf";
-if ( !file_exists( $fileName ) )
-{
-	die ( "File does not exist" );
+	header( "Location: index.html" );
+	exit();
 }
 
-//tell browser to expect pdf file as response
-header("Content-type:application/pdf");
+//if the id provided is not an actual id of a note in the database, error out
+$note = Database::getNotesByID( $_GET['id'] );
+if ( !isset( $note['id'] ) )
+{
+	//TODO: show error message page when in production
+	die( "File does not exist" );
+}
 
-//Set the timezone to Phoenix to stop warnings from timezone not being set...
-date_default_timezone_set('America/Phoenix');
+//if the note with the id provided is not an actual file, error out
+$path = Database::getUploadPath( $note['id'] , $note['filetype'] );
+if ( !file_exists( $path ) )
+{
+	//Log the error so that the server knows a file is missing for a valid note
+	Database::logError( "File '{$path}' could not be found\n", false );
 
-//get the date that the file was created and turn it into unix time
-$phpdate = strtotime( $agenda[ 'uploadDate'] );
+	//TODO: show some error message to the user when in production
+	die( "File could not be found" );
+}
 
-//turn the unix time into a date for filename
-$mysqldate = date( 'm_d_Y', $phpdate );
+//tell browser to expect the mime type of whatever type the file is
+$content = Database::getMimeFromType( $note['filetype'] );
+header("Content-type:{$content}");
 
-//tell the browser that the filename to download the file as is Agenda_ followed by date the agenda was added to database
-header("Content-Disposition:attachment;filename='Agenda{$mysqldate}.pdf'");
+//tell the browser that the downloaded file's name should be the one in the database
+header("Content-Disposition:attachment;filename=\"${note['filename']}.${note['filetype']}\"");
 
 //output the files contents to the browser, allowing user to download file
-readfile( $fileName );
-*/
+readfile( $path );

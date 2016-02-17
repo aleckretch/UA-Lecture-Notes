@@ -100,7 +100,9 @@ if ( $account === NULL || $account->canUpload() !== TRUE )
 $date = trim($_POST['date']);
 $date = date("Y-m-d", strtotime($date));
 $fileType = Config::$ALLOWED_TYPES[ $mime ];
-$fileName = $_FILES['file']['name'];
+
+//get the filename excluding any non-alphanumeric characters
+$fileName = Database::sanitizeFileName( $_FILES['file']['name']);
 $id = Database::createNote( $fileName, $fileType, $date, $course, $user );
 
 $result = true;
@@ -113,7 +115,7 @@ if ( !file_exists( "./uploads" ) )
 //if the upload has been created in the past at some point
 if ( $result === true )
 {
-	$dir = "./uploads/note{$id}.${fileType}";
+	$dir = Database::getUploadPath( $id , $fileType );
 	if ( file_exists( $dir ) )
 	{
 		Database::logError( "File with {$id} already exists\n" );
