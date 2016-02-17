@@ -1,79 +1,141 @@
 <!doctype html>
-<html >
-  <head>
-    <meta charset="utf-8">
-    <title>Arizona Notes</title>
-	  
-	  <link rel="stylesheet" type="text/css" href="css/main.css">
-	  <link rel="stylesheet" type="text/css" href="css/fonts.css">
-	  <style>
-	  	 
-	  </style>
-	
-	
-	
-	</head>
-	
-	<body >
-		<div class="darken_div"></div>
-		<div class="header_div">
-			<div class="logo_div clearfix">
-				<div class="logo_left">
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Arizona Notes</title>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+
+
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+
+</head>
+
+<body>
+	<div class="darken_div"></div>
+	<div class="header_div">
+
+		<div class="logo_div clearfix">
+			<div class="logo_left">
+				<a href="index.html">
 					<img src="images/A.png">
-				</div>
-				<div class="logo_right">
-					<div> Lecture</div>
-						<div>Notes</div>
-				</div>
-				
+				</a>
 			</div>
-		
+			<div class="logo_right">
+				<div>Lecture</div>
+				<div>Notes</div>
+			</div>
+
 		</div>
-		<div class="description_div">
-			<a>Find your class. Stay up to date in lectures.</a>
-		
+
+
+
+	</div>
+	<div class="description_div">
+		<a>Find your class. Stay up to date in lectures.</a>
+
+	</div>
+	<div class="searchbar_group">
+		<div class=" searchbar_div">
+			<div class="search_icon_div">
+				<img src="images/Layer-1.png" />
+			</div>
+			<div class="search_input_div">
+				<input id="search_input" type="text" />
+			</div>
+
 		</div>
-			<div class="searchbar_group">
-			<div class=" searchbar_div">
-				<div class="search_icon_div">
-					<img src="images/Layer-1.png" />
-				</div>
-				<div class="search_input_div"><input type="text" /></div>
-				
-			</div>
-			<div class="autoComplete_div">
-				<div class="autoComplete-item">
-					<span class="title">
-						CSC 252: Machine Lanuage - Spring 2016
-					</span>
-					<span class="instr">
-						Instuctor: Patrick Homer
-					</span>
-				</div>	
-				<div class="autoComplete-item">
-					<span class="title">
-						CSC 335: Object-Oriented Principles - Spring 2016
-					</span>
-					<span class="instr">
-						Instuctor: Patrick Homer
-					</span>
-				</div>
-				<div class="autoComplete-item">
-					<span class="title">
-						CSC 352: UNIX and System Pro.... - Spring 2016
-					</span>
-					<span class="instr">
-						Instuctor: Patrick Homer
-					</span>
-				</div>	
-				
-			</div>
+		<div class="autoComplete_div">
 			
-		
+
 		</div>
-	
-	
-	</body>
-	
-	
+
+
+	</div>
+
+	<footer>
+		<p>The University of Arizona | All contents copyright &copy; 2016. Arizona Board of Regents</p>
+	</footer>
+</body>
+<script>
+	$(document).ready(function(){
+		var result =[
+			{
+			id:0,
+			subject:'CSC',
+			crourse_num: 352,
+			crouse_name:'Object-Oriented Principles',
+			term: 'Spring 2016',
+				instr:'Patrick Homer'
+			},
+			{
+			id:1,
+			subject:'CSC',
+			crourse_num: 352,
+			crouse_name:'Object-Oriented Principles',
+			term: 'Spring 2016'	,
+				instr:'Patrick Homer'
+				
+			},
+			{
+			id:3,
+			subject:'AFAS',
+			crourse_num: 202,
+			crouse_name:'Object-Oriented Principles',
+			term: 'Spring 2016',
+				instr:'Patrick Homer'
+				
+			},
+			{
+			id:4,
+			subject:'ISTA',
+			crourse_num: 151,
+			crouse_name:'Object-Oriented Principles',
+			term: 'Spring 2016'	,
+			instr:'Patrick Homer'
+				
+			}
+			
+		];
+			
+			
+		console.log(result);
+		
+		
+		
+		$('#search_input').keyup(function(){
+			var keywords =$('#search_input').val();
+			
+			if (keywords ==""){
+				
+				$('.autoComplete_div').html("");
+				return;
+			}
+			var html = "";
+			
+			for (i in result){
+				var  a = result[i];
+				var text = '<div class="autoComplete-item"><span class="title">'
+					+a.subject+' '+a.crourse_num+': '+a.crouse_name+ " -- "+a.term+
+					'</span><span class="instr">Instuctor: ' +
+						a.instr+'</span></div>'
+				
+				
+				html+=text;
+			}
+			 $('.autoComplete_div').html(html)
+			
+			
+		});
+		
+		
+		
+	})
+</script>
+
 </html>

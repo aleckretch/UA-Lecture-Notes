@@ -185,7 +185,24 @@
 			  font-size: 0.9em;
 			   white-space: nowrap
 		  }
-		  
+
+footer{
+	position: absolute;
+	bottom: 0px;
+	margin: 3px;
+	font-family: MiloOT-LightIta;
+}
+
+
+
+
+/*
+	Above  is everyhing on home page search page
+	below is everything on result page
+*/
+
+
+
 	.main-content {
     	background-color: #fff;
     	margin: 0 3%;
@@ -237,9 +254,4 @@
 	margin: 0 3%;
 	}
 	
-<<<<<<< HEAD
 
- 
-	
-=======
->>>>>>> cf05ee2590bde09d42d57b33a21cc3d96ceabc91
