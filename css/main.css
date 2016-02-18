@@ -186,7 +186,8 @@
 			   white-space: nowrap
 		  }
 
-footer{
+footer#foot1{
+	color:white;
 	position: absolute;
 	bottom: 0px;
 	margin: 3px;
@@ -252,6 +253,7 @@ footer{
 	footer{
 	color: white;
 	margin: 0 3%;
+	font-family: MiloOT-LightIta;
 	}
 	
 
