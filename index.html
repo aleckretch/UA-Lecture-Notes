@@ -1,3 +1,6 @@
+<?php
+require_once "./database.php";
+?>
 <!doctype html>
 <html>
 
@@ -103,39 +106,43 @@
 			
 		];
 			
-			
-		console.log(result);
-		
-		
+		//console.log(result);
 		
 		$('#search_input').keyup(function(){
 			var keywords =$('#search_input').val();
-			
 			if (keywords ==""){
 				
 				$('.autoComplete_div').html("");
 				return;
 			}
 			var html = "";
+			var xhttp = new XMLHttpRequest();
+			// anonymous callback will execute upon server response
+			xhttp.onreadystatechange = function() {
+				// States 0 1 2 3 4 (4 means success)
+				// 404 is bad xhttp.status, 200 is good
+				if (xhttp.readyState == 4 && xhttp.status == 200) {
+					// parse JSONArray (from courseSearch.php)
+					var array = JSON.parse(xhttp.responseText);
+					console.log(array);
+					for (i in array){
+						var a = array[i];
+						var text = '<div class="autoComplete-item"><span class="title">' +
+						a.courseName + " -- "+ a.semester +
+						'</span><span class="instr">Instuctor: ' +
+						a.instructor + '</span></div>';
+					html+=text;
+					}
 			
-			for (i in result){
-				var  a = result[i];
-				var text = '<div class="autoComplete-item"><span class="title">'
-					+a.subject+' '+a.crourse_num+': '+a.crouse_name+ " -- "+a.term+
-					'</span><span class="instr">Instuctor: ' +
-						a.instr+'</span></div>'
-				
-				
-				html+=text;
+			 	$('.autoComplete_div').html(html);
+				}
 			}
-			 $('.autoComplete_div').html(html)
-			
+			// use GET
+			xhttp.open("GET", "courseSearch.php?searchKey=" + keywords, true);
+			xhttp.send();
 			
 		});
-		
-		
-		
-	})
+	});
 </script>
 
 </html>
