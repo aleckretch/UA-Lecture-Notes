@@ -65,8 +65,7 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 else if ( Session::userLoggedIn() )
 {	
 	echo "Logged in";
-	//TODO: redirect to other page
-	//header( "Location: admin.php" );
+	header( "Location: index.php" );
 	exit();
 }
 else

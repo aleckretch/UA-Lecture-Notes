@@ -1,3 +1,12 @@
+<?php
+	require_once "./database.php";
+	require_once "./session.php";
+	if ( !Session::userLoggedIn() )
+	{
+		header( "Location: login.php" );
+		exit();
+	}
+?>
 <!doctype html>
 <html>
 

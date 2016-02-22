@@ -1,9 +1,3 @@
-(*) = Currently being handled
-
-(*)PHP side AJAX handler for course searches(Jamie/Alex)
-
-(*)Populate results from AJAX searching of courses(Jamie/Alex)
-
 (Javascript)
 Clicking on a course that was searched should go to that courses page, use id from results
 
@@ -37,5 +31,11 @@ Make sure the pages are responsive, they need to still look on when browser wind
 Test the pages in different browsers, look for bugs
 
 
+(TEST)M-D-Y for lecture notes downloaded
 
+(DONE)NetID for index.html
+
+main admin panel, course add
+
+Course name in downloaded filename
 

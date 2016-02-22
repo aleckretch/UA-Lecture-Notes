@@ -9,10 +9,16 @@ require_once( "./database.php" );
 require_once( "./config.php" );
 require_once( "./session.php" );
 
+if ( !Session::userLoggedIn() )
+{
+	header( "Location: login.php" );
+	exit();
+}
+
 //get the id provided as a get parameter
 if ( !isset( $_GET['id'] ) )
 {
-	header( "Location: index.html" );
+	header( "Location: index.php" );
 	exit();
 }
 
@@ -39,8 +45,16 @@ if ( !file_exists( $path ) )
 $content = Database::getMimeFromType( $note['filetype'] );
 header("Content-type:{$content}");
 
+date_default_timezone_set('America/Phoenix');
+$phpdate = strtotime( $note[ 'lectureDate'] );
+
+//turn the unix time into a date for filename
+$mysqldate = date( 'm_d_Y', $phpdate );
+
+$fileName = "Course_${note['courseID']}_${mysqldate}";
+
 //tell the browser that the downloaded file's name should be the one in the database
-header("Content-Disposition:attachment;filename=\"${note['filename']}.${note['filetype']}\"");
+header("Content-Disposition:attachment;filename=\"${fileName}.${note['filetype']}\"");
 
 //output the files contents to the browser, allowing user to download file
 readfile( $path );
