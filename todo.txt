@@ -13,7 +13,7 @@ front end for the back end->
 	adding account as uploader/instructor for a course
 		If the netID provided is not already in the database then add them to it
 	option to delete notes for a course
-		Need to add this functionality in database api
+		(TEST)Need to add this functionality in database api
 
 (HTML/CSS)
 better looking upload page, make similar to course page

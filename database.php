@@ -325,6 +325,42 @@ class Database
 		}
 		return preg_replace('/[^A-Za-z0-9_\-]/', '_', $fileName );
 	}
-}
+
+	/*
+		Removes the note from the database that has the id provided.
+		Returns the error code for that statement execution.
+	*/
+	public static function removeNoteWithID( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Notes WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
+		Removes the note file with the ID provided.
+		Returns true if the file was actually deleted or false otherwise.
+		IMPORTANT: Do not call this after removeNoteWithID or this will fail.
+	*/
+	public static function removeNoteFile( $id )
+	{
+		$note = self::getNotesByID( $id );
+		if ( !isset( $note[ 'id' ] ) )
+		{
+			return false;
+		}
+
+		$path = Database::getUploadPath( $note['id'] , $note['filetype'] );
+		if ( !file_exists( $path ) )
+		{
+			//Log the error so that the server knows a file is missing for a valid note
+			Database::logError( "File '{$path}' could not be found to be deleted\n", false );
+			return false;
+		}		
+
+		return ( unlink( $path ) );
+	}
 
 ?>
