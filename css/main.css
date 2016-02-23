@@ -211,8 +211,14 @@ footer#foot1{
     	padding:1%;
 	}
 	
+	.main-logo{
+	margin: 0 3%;
+	padding: 1% 0%;
+	}
+	
 	.upload {
 	text-align: right;
+	font-family: 'MiloOT-Bold';
 	}
 	
 	.upload a {
@@ -222,39 +228,49 @@ footer#foot1{
 	}
 	
 	article p {
-    	color: red;
+    color: red;
 	font-family: 'MiloOT-Bold';
-	font-size: 1.3em;
+	font-size: 1.6em;
 	margin-top: 0;
 	margin-bottom: .1em;
 	}
 	
 	article p + p{
-    	color: grey;
+    color: grey;
 	font-family: 'MiloOT-Bold';
-	font-size: .9em;
+	font-size: 1em;
 	line-height: 1;
 	}
 	
-	table.note_list{
+	div.float{
+	float:left;
+	}
+	
+	div.space {
+  	margin: 0 5%;
+  	text-align: center;
+	}
+	
+	div.float p {
 	text-align: center;
-	margin-top: 10px;
-	margin-left:auto; 
-    	margin-right:auto;
-	}
-	
-	table div{
 	line-height: 0;
+	font-size: 1em;
+	font-family: 'MiloOT-Bold';
 	}
 	
-	table td{
-	margin-bottom: 0;
+	div.float a {
+	text-decoration: none;
+	}
+	
+	.main-content main{
+	margin-left:12em; 
+    margin-right:10em;
 	}
 	
 	footer{
 	color: white;
 	margin: 0 3%;
-	font-family: MiloOT-LightIta;
+	font-family: 'MiloOT-LightIta';
 	}
 	
 
