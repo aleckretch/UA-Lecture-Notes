@@ -208,14 +208,14 @@ class Database
 	}
 
 	/*
-		Returns an array of courses with the searchFor term at the beginning of the name.
+		Returns an array of courses with the searchFor term at the beginning of the name or in instructor's name
 		If no courses match then an empty array is returned.
 	*/
 	public static function searchCourses( $searchFor )
 	{
-		$args = array( $searchFor . "%" );
+		$args = array( $searchFor . "%" , "%" . $searchFor . "%");
 		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Course WHERE name LIKE ? ORDER BY semester DESC,instructor ASC" );
+		$stmt = $conn->prepare( "SELECT * FROM Course WHERE name LIKE ? OR instructor LIKE ? ORDER BY semester DESC,instructor ASC" ); 
 		$stmt->execute( $args );
 		return $stmt->fetchAll();
 	}
@@ -226,7 +226,7 @@ class Database
 	*/
 	public static function searchCoursesByProfessor( $searchFor )
 	{
-		$args = array( $professor . "%" );
+		$args = array( $searchFor . "%" );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT * FROM Course WHERE instructor LIKE ? ORDER BY semester DESC,instructor ASC" );
 		$stmt->execute( $args );
@@ -362,5 +362,5 @@ class Database
 
 		return ( unlink( $path ) );
 	}
-
+}
 ?>

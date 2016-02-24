@@ -108,10 +108,20 @@
 			}
 			
 		];
-			
+		function highlightMatch(searchKey, str) { 
+			var result = str;
+			str = str.toLowerCase(); // probably should've used regexp, oh well
+			searchKey = searchKey.toLowerCase();
+			var i = str.indexOf(searchKey);
+			if (i != -1) {
+				var toReplace = result.substr(i, searchKey.length);
+				result = result.replace(toReplace, toReplace.bold());
+			}
+			return result;
+		}
 		//console.log(result);
 		
-		$('#search_input').keyup(function(){
+		$('#search_input').keyup(function() {
 			var keywords =$('#search_input').val();
 			if (keywords ==""){
 				
@@ -131,9 +141,9 @@
 					for (i in array){
 						var a = array[i];
 						var text = '<div class="autoComplete-item"><span class="title">' +
-						a.courseName + " -- "+ a.semester +
+						highlightMatch(keywords, a.courseName) + " -- "+ a.semester +
 						'</span><span class="instr">Instuctor: ' +
-						a.instructor + '</span></div>';
+						highlightMatch(keywords, a.instructor)+ '</span></div>';
 					html+=text;
 					}
 			
