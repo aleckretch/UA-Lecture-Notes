@@ -1,5 +1,5 @@
 <?php
-/*
+
 	require_once './database.php';
 
 	if ( !isset( $_GET['id'] ) )
@@ -10,7 +10,7 @@
 	$retrievedCourse = Database::getCoursebyID($searchId);
 	$retrievedCourse['name'];
 	$notes = Database::getNotesByCourse($searchId);
-*/	
+	
 ?>
 
 <!doctype html>
