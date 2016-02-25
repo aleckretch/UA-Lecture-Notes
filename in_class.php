@@ -49,9 +49,18 @@
 		
 		<article class="main-content">
 			<header>
+			<?php
+			$user = Database::getUserId( Session::user() );
+			$account = Database::getAccount( $user, $searchId );
+			if ( $account !== NULL && $account->canUpload() )
+			{
+			?>
 			<div class="upload">
 				<a href="#">Upload Notes</a>
 			</div>
+			<?php
+			}
+			?>
 			<p>
 			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester']; ?>
 			</p>
