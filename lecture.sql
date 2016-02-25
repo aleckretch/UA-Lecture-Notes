@@ -101,12 +101,14 @@ CREATE TABLE Admin
 );
 
 INSERT INTO Users( id, username ) VALUES( 1, 'djenkins1' );
+INSERT INTO Users( id, username ) VALUES( 2, 'akretch' );
 INSERT INTO Admin( userID ) VALUES( 1 );
 INSERT INTO Course( id, name, semester, instructor ) VALUES( 1 , 'CSC 337' , 'Fall 2015' , 'Rick Mercer' );
 INSERT INTO Course( id, name, semester, instructor ) VALUES( 2 , 'CSC 337' , 'Spring 2016' , 'Mark Fischer' );
 INSERT INTO Course( id, name, semester, instructor ) VALUES( 3 , 'CSC 473' , 'Spring 2016' , 'Eric Anson' );
 INSERT INTO Account( userID, courseID , accountType ) VALUES( 1 , 1 , 'instructor' );
 INSERT INTO Account( userID, courseID , accountType ) VALUES( 1 , 2 , 'uploader' );
+INSERT INTO Account( userID, courseID , accountType ) VALUES( 2 , 1 , 'uploader' );
 INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 1, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
 INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 2, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
 INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 3, "pdf", "test", CURDATE(), CURDATE(), 3, 1);

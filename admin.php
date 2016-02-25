@@ -19,6 +19,13 @@ if ( isset( $_GET['course'] ) )
 
 	//if the user does not have permission to see the admin page for the course then redirect them to the home page
 	$course = $_GET['course'];
+	$retrievedCourse = Database::getCoursebyID($course);
+	if ( !isset( $retrievedCourse['id'] ) )
+	{
+		header( "Location: index.php" );
+		exit();
+	}
+
 	$user = Database::getUserId( Session::user() );
 	$account = Database::getAccount( $user, $course );
 	if ( $account === NULL || $account->canPromote() !== TRUE )
@@ -26,8 +33,68 @@ if ( isset( $_GET['course'] ) )
 		header( "Location: index.php" );
 		exit();
 	}
+?>
+<!doctype html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <title>Arizona Notes</title>
+	  
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
 
-	//TODO: NEED TO OUTPUT HTML DISPLAY
+	</head>
+	
+	<body>
+		<div class="darken_div"></div>
+		<div class="main-logo">
+			<a href="index.php">
+			<img src="images/logo.png" height="90px" width=auto></a>	
+		</div>
+		
+		<article class="main-content">
+			<header>
+			<p>
+			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester']; ?>
+			</p>
+			<p>
+			Instructor: <?php echo $retrievedCourse['instructor']; ?>
+			</p>
+			</header>
+			<main>
+				<div>
+			<?php
+				//show a list of accounts that can upload
+				//form to add an account to the list
+				//x button to remove an account from the list
+				$uploaders = Database::getUploadersForCourse( $course );
+				foreach ( $uploaders as $user )
+				{
+					$id = $user['id'];
+					$data = Database::getUserData( $id );
+					if ( !isset( $data['username'] ) )
+					{
+						continue;
+					}
+					echo "<div>${data['username']} - <a href='#'>X</a></div>";
+				}
+			?>
+				</div>
+				<br><br>
+				<div>
+				<!-- Change index.php to php script for handling adding a user to uploader list -->
+					<div>Add Uploader</div>
+					<form method='POST' action='index.php'>
+						NetID: <br><input type='text' name='user' /><br>
+						<input type='hidden' name='course' value='<?php echo "${course}";?>'/>
+						<input type='submit' value='Add'/><br>
+					</form>
+				</div>
+			</main>
+		</article>
+	</body>
+	</html>
+<?php
 }
 else
 {
@@ -38,6 +105,57 @@ else
 		header( "Location: index.php" );
 		exit();
 	}
-	//TODO: NEED TO OUTPUT HTML DISPLAY
+?>
+<!doctype html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <title>Arizona Notes</title>
+	  
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+
+	</head>
+	
+	<body>
+		<div class="darken_div"></div>
+		<div class="main-logo">
+			<a href="index.php">
+			<img src="images/logo.png" height="90px" width=auto></a>	
+		</div>
+		
+		<article class="main-content">
+			<header>
+			<p>
+			Admin Panel
+			</p>
+			<p>
+			Add Course
+			</p>
+			</header>
+			<main>
+				<div>
+				<!-- Change index.php to php script for handling adding a user to uploader list -->
+				<?php
+					//need instructor name field
+					//	instructor netid field
+					//	course name field
+					//	course semester field
+					//
+				?>
+					<form method='POST' action='index.php'>
+						Course Name: <br><input type='text' name='name' placeholder='CSC 335'/><br>
+						Semester: <br><input type='text' name='semester' placeholder='Spring 2016'/><br>
+						Instructor: <br><input type='text' name='instructor'/><br>
+						Instructor NetID: <br><input type='text' name='netid' /><br>
+						<input type='submit' value='Add Course'/><br>
+					</form>
+				</div>
+
+			</main>
+		</article>
+	</body>
+	</html>
+<?php
 }
 

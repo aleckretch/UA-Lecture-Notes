@@ -401,5 +401,30 @@ class Database
 		$user = $stmt->fetch();
 		return ( isset( $user['userID'] ) );
 	}
+
+	/*
+		Returns a list of uploaders for a course with the courseID provided.
+		Each entry in the array has a id field that represent the id of the user(not the netid)
+	*/
+	public static function getUploadersForCourse( $courseID )
+	{
+		$args = array( $courseID, Uploader::getName() );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT userID AS id FROM Account WHERE courseID=? AND accountType=?" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Returns the user information for the user with the id provided.
+	*/
+	public static function getUserData( $userID )
+	{
+		$args = array( $userID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Users WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->fetch();	
+	}
 }
 ?>
