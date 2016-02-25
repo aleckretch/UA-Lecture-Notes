@@ -1,3 +1,17 @@
+<?php
+
+	require_once './database.php';
+
+	if ( !isset( $_GET['id'] ) )
+	{
+		die( "[]" );
+	}
+	$searchId = $_GET['id'];
+	$retrievedCourse = Database::getCoursebyID($searchId);
+	$retrievedCourse['name'];
+
+?>
+
 <!doctype html>
 <html>
 	<head>
@@ -21,10 +35,10 @@
 				<a href="#">Upload Notes</a>
 			</div>
 			<p>
-			CSc 352: UNIX and System Programming - Spring 2016
+			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester'] ?>
 			</p>
 			<p>
-			Instructor: William Mitchel
+			Instructor: <?php echo $retrievedCourse['instructor'] ?>
 			</p>
 			</header>
 			<main>

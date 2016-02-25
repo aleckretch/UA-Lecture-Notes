@@ -9,12 +9,15 @@
 	//var_dump($arrayOfCourses);
 	$JSONArray = '['; //begin JSONArray string
 	foreach($arrayOfCourses as $record) {
+		$id = $record['id'];
 		$courseName = $record['name'];
 		$semester = $record['semester'];
 		$instructor = $record['instructor'];
-		$JSONArray = $JSONArray . '{ "courseName": "' . $courseName . ' ",';
-		$JSONArray = $JSONArray . '"semester": "' . $semester . ' ",';
-		$JSONArray = $JSONArray . '"instructor": "' . $instructor . ' "';
+
+		$JSONArray = $JSONArray . '{ "courseName": "' . $courseName . '",';
+		$JSONArray = $JSONArray . '"id": "' . $id . '",';
+		$JSONArray = $JSONArray . '"semester": "' . $semester . '",';
+		$JSONArray = $JSONArray . '"instructor": "' . $instructor . '"';
 		$JSONArray = $JSONArray . '},';
 	}
 	$JSONArray = rtrim($JSONArray, ","); //remove last comma

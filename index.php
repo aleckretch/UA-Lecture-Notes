@@ -140,7 +140,10 @@
 					console.log(array);
 					for (i in array){
 						var a = array[i];
-						var text = '<div class="autoComplete-item"><span class="title">' +
+						var text = 
+						// '<form name="coursepage" id="coursepage" action="in_class.html"><input type="hidden" name="courseID" value="' + a.id + '"><div class="autoComplete-item" onClick="document.forms[\'coursepage\'].submit();"><span class="title">'
+						'<div class="autoComplete-item" onclick="location.href=\'in_class.php?id=' + a.id + '\'"><span class="title">' 
+						+
 						highlightMatch(keywords, a.courseName) + " -- "+ a.semester +
 						'</span><span class="instr">Instuctor: ' +
 						highlightMatch(keywords, a.instructor)+ '</span></div>';
