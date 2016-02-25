@@ -9,7 +9,7 @@
 	$searchId = $_GET['id'];
 	$retrievedCourse = Database::getCoursebyID($searchId);
 	$retrievedCourse['name'];
-
+	$notes = Database::getNotesByCourse($searchId);
 ?>
 
 <!doctype html>
@@ -35,14 +35,20 @@
 				<a href="#">Upload Notes</a>
 			</div>
 			<p>
-			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester'] ?>
+			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester']; ?>
 			</p>
 			<p>
-			Instructor: <?php echo $retrievedCourse['instructor'] ?>
+			Instructor: <?php echo $retrievedCourse['instructor']; ?>
 			</p>
 			</header>
 			<main>
+			<?php foreach ($notes as $note) {
+			?>
 				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
+				<p><?php echo $note['lectureDate']; ?></p></div>
+				<?php } ?>
+
+				<!-- <div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
 				<p>2/3/16</p></div>
 				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
 				<p>2/2/16</p></div>
@@ -68,7 +74,7 @@
 				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
 				<p>1/30/15</p></div>
 				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/29/15</p></div>
+				<p>1/29/15</p></div> -->
 			</main>
 		</article>
 		

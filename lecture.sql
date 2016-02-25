@@ -107,4 +107,7 @@ INSERT INTO Course( id, name, semester, instructor ) VALUES( 2 , 'CSC 337' , 'Sp
 INSERT INTO Course( id, name, semester, instructor ) VALUES( 3 , 'CSC 473' , 'Spring 2016' , 'Eric Anson' );
 INSERT INTO Account( userID, courseID , accountType ) VALUES( 1 , 1 , 'instructor' );
 INSERT INTO Account( userID, courseID , accountType ) VALUES( 1 , 2 , 'uploader' );
-
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 1, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 2, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 3, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 4, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
