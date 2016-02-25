@@ -1,9 +1,8 @@
-(Javascript)
+(DONE)(Javascript)
 Clicking on a course that was searched should go to that courses page, use id from results
 
-(Javascript/PHP)
+(DONE)(Javascript/PHP)
 Convert in_course.html to php file or use AJAX requests with handler for dynamic content
-	upload button with link to backend page, only show up if user can actually upload for that course
 	populate with actual files
 	populate with course name,instructor,semester depending on which course(use id)
 
@@ -39,3 +38,8 @@ main admin panel, course add
 
 Course name in downloaded filename
 
+Sanitize input going into database
+
+Show some kind of message if there are no note files on in_class.php
+
+upload button with link to backend page, only show up if user can actually upload for that course
