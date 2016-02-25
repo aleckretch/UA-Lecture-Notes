@@ -20,7 +20,7 @@
 			  position: absolute;
 			  width: 100%;
 			  height:100%;
-			  background: rgba(0,0,0,0.3);
+			  background: rgba(0,0,0,0.4);
 			  z-index: -1;
 		  }
 			 
@@ -36,7 +36,7 @@
 			  
 			 width:300px;
 			  margin-left: 35px;
-			  margin-top: 35px;
+			  padding-top: 35px;
 			  
 			  
 		  }
@@ -191,7 +191,8 @@ footer#foot1{
 	position: absolute;
 	bottom: 0px;
 	margin: 3px;
-	font-family: MiloOT-LightIta;
+	padding-left:25px;
+	font-family: MiloOT-Thin;
 }
 
 
@@ -212,8 +213,9 @@ footer#foot1{
 	}
 	
 	.main-logo{
-	margin: 0 3%;
-	padding: 1% 0%;
+	
+		padding-top:20px;
+		padding-left: 20px;
 	}
 	
 	.upload {
@@ -267,10 +269,6 @@ footer#foot1{
     margin-right:10em;
 	}
 	
-	footer{
-	color: white;
-	margin: 0 3%;
-	font-family: 'MiloOT-LightIta';
-	}
+	
 	
 

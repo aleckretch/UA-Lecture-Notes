@@ -1,5 +1,5 @@
 <?php
-
+/*
 	require_once './database.php';
 
 	if ( !isset( $_GET['id'] ) )
@@ -10,6 +10,7 @@
 	$retrievedCourse = Database::getCoursebyID($searchId);
 	$retrievedCourse['name'];
 	$notes = Database::getNotesByCourse($searchId);
+*/	
 ?>
 
 <!doctype html>
@@ -24,9 +25,10 @@
 	</head>
 	
 	<body>
+		<div class="darken_div"></div>
 		<div class="main-logo">
-			<a href="index.html">
-			<img src="images/logo.png" height="80" width=auto></a>	
+			<a href="index.php">
+			<img src="images/logo.png" height="90px" width=auto></a>	
 		</div>
 		
 		<article class="main-content">
@@ -78,9 +80,9 @@
 			</main>
 		</article>
 		
-		<footer>
-			<p>The University of Arizona | All contents copyright &copy; 2016. Arizona Board of Regents</p>
-		</footer>
+		<footer id="foot1">
+		<p>The University of Arizona | All contents copyright &copy; 2016. Arizona Board of Regents</p>
+	</footer>
 	
 	
 	</body>

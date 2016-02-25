@@ -26,17 +26,9 @@
 	<div class="darken_div"></div>
 	<div class="header_div">
 
-		<div class="logo_div clearfix">
-			<div class="logo_left">
-				<a href="index.html">
-					<img src="images/A.png">
-				</a>
-			</div>
-			<div class="logo_right">
-				<div>Lecture</div>
-				<div>Notes</div>
-			</div>
-
+		<div class="main-logo">
+			<a href="index.php">
+			<img src="images/logo.png" height="90px" width=auto></a>	
 		</div>
 
 
@@ -136,13 +128,12 @@
 				// 404 is bad xhttp.status, 200 is good
 				if (xhttp.readyState == 4 && xhttp.status == 200) {
 					// parse JSONArray (from courseSearch.php)
+					console.log(xhttp.responseText);
 					var array = JSON.parse(xhttp.responseText);
-					console.log(array);
+					
 					for (i in array){
 						var a = array[i];
-						var text = 
-						// '<form name="coursepage" id="coursepage" action="in_class.html"><input type="hidden" name="courseID" value="' + a.id + '"><div class="autoComplete-item" onClick="document.forms[\'coursepage\'].submit();"><span class="title">'
-						'<div class="autoComplete-item" onclick="location.href=\'in_class.php?id=' + a.id + '\'"><span class="title">' 
+						var text = '<div class="autoComplete-item" onclick="location.href=\'in_class.php?id=' + a.id + '\'"><span class="title">' 
 						+
 						highlightMatch(keywords, a.courseName) + " -- "+ a.semester +
 						'</span><span class="instr">Instuctor: ' +
