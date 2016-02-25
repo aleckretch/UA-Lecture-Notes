@@ -362,5 +362,44 @@ class Database
 
 		return ( unlink( $path ) );
 	}
+
+	/*
+		Adds the user with the id provided to the list of admins.
+		Returns the id provided
+	*/	
+	public static function addAdmin( $userID )
+	{
+		$args = array( $userID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "INSERT INTO Admin( userID ) values( ? )" );
+		$stmt->execute( $args );
+		return $conn->lastInsertId();			
+	}
+
+	/*
+		Removes the user with the id provided from the list of admins.
+		Returns true always. 
+	*/
+	public static function removeAdmin( $userID )
+	{
+		$args = array( $userID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Admin where userID=?" );
+		$stmt->execute( $args );
+		return TRUE;			
+	}
+
+	/*
+		Returns true if the id of the user provided is an admin or false otherwise.
+	*/
+	public static function isAdmin( $userID )
+	{
+		$args = array( $userID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT userID FROM Admin WHERE userID=?" );
+		$stmt->execute( $args );
+		$user = $stmt->fetch();
+		return ( isset( $user['userID'] ) );
+	}
 }
 ?>

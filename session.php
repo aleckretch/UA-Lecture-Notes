@@ -36,11 +36,37 @@ class Session
 	}
 
 	/*
+		Queries the database to see if the user is an admin and initializes the session variable for that result.
+	*/
+	public static function setAdmin( $username )
+	{
+		$id = Database::getUserId( $username );
+		$_SESSION['admin'] = false;
+		if ( $id !== -1 )
+		{
+			$_SESSION['admin'] = Database::isAdmin( $id );
+		}
+	}
+
+	/*
+		Returns true if the user of this session is an admin or false otherwise.
+	*/
+	public static function getAdmin()
+	{
+		if ( isset( $_SESSION['admin'] ) )
+		{
+			return $_SESSION['admin'];
+		}
+		return false;
+	}
+
+	/*
 		Sets the user in the session to the username provided
 	*/
 	public static function loginUser( $username )
 	{
 		self::setUser( $username );
+		self::setAdmin( $username );
 		return true;
 	}
 
