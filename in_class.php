@@ -1,13 +1,29 @@
 <?php
-
 	require_once './database.php';
+	require_once "./session.php";
 
 	if ( !isset( $_GET['id'] ) )
 	{
-		die( "[]" );
+		header( "Location: index.php" );
+		exit();
 	}
+
+	//if the user is not logged in then redirect
+	if ( !Session::userLoggedIn() )
+	{
+		header( "Location: login.php" );
+		exit();
+	}
+
 	$searchId = $_GET['id'];
 	$retrievedCourse = Database::getCoursebyID($searchId);
+	//if the id provided is not actually a valid course then redirect
+	if ( !isset( $retrievedCourse['id'] ) )
+	{
+		header( "Location: index.php" );
+		exit();
+	}
+
 	$retrievedCourse['name'];
 	$notes = Database::getNotesByCourse($searchId);
 	
@@ -33,9 +49,18 @@
 		
 		<article class="main-content">
 			<header>
+			<?php
+			$user = Database::getUserId( Session::user() );
+			$account = Database::getAccount( $user, $searchId );
+			if ( $account !== NULL && $account->canUpload() )
+			{
+			?>
 			<div class="upload">
 				<a href="#">Upload Notes</a>
 			</div>
+			<?php
+			}
+			?>
 			<p>
 			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester']; ?>
 			</p>
@@ -46,7 +71,7 @@
 			<main>
 			<?php foreach ($notes as $note) {
 			?>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
+				<div class="float"><a href="download.php?id=<?php echo $note['id']?>"><img src="images/pdf.png" alt="" height="150" width=auto></br>
 				<p><?php echo $note['lectureDate']; ?></p></div>
 				<?php } ?>
 

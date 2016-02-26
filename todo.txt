@@ -1,41 +1,39 @@
-(Javascript)
+(DONE)(Javascript)
 Clicking on a course that was searched should go to that courses page, use id from results
 
-(Javascript/PHP)
+(DONE)(Javascript/PHP)
 Convert in_course.html to php file or use AJAX requests with handler for dynamic content
-	upload button with link to backend page, only show up if user can actually upload for that course
 	populate with actual files
 	populate with course name,instructor,semester depending on which course(use id)
 
-(PHP/HTML)
+(DONE)(PHP/HTML)
 front end for the back end->
-	adding a course
-	adding account as uploader/instructor for a course
-		If the netID provided is not already in the database then add them to it
-	option to delete notes for a course
-		(TEST)Need to add this functionality in database api
+	(HTML DONE)adding a course
+	(HTML DONE)adding account as uploader for a course
 
-(HTML/CSS)
-better looking upload page, make similar to course page
-
-(Photoshop)
-(!)Need images for the files in in_course.html
-
-(HTML/CSS)
-(!)Change over from tables to floated divs in in_course.html
-
-(HTML/CSS)
-Make sure the pages are responsive, they need to still look on when browser window small
-
-(HTML/CSS)
-Test the pages in different browsers, look for bugs
-
+(DONE)upload button should only show up if user can actually upload for that course
 
 (TEST)M-D-Y for lecture notes downloaded
 
-(DONE)NetID for index.html
+(TEST)Sanitize input going into database
 
-main admin panel, course add
+(HTML/CSS)Test the pages in different browsers, look for bugs
 
-Course name in downloaded filename
+(HTML/CSS)Add style for delete buttons for files in in_class.php
+
+(HTML/CSS)Upload modal for when upload button is clicked on in in_class.php( use in_class_mockup.html for prototype)
+
+(PHP)Show some kind of message if there are no note files on in_class.php
+
+(PHP/HTML/CSS)Clean up backend style for instructor page in admin.php
+
+(PHP)Handle form submit for adding a student as an uploader for a specific course
+	If the user netid is not in the database then add them to it before giving them an uploader account
+
+(PHP)Handle form submit for adding a course
+	If the instructor netid is not in the database then add them to it before giving them an instructor account
+
+(?)(PHP)Admin panel for adding account as instructor for a course after the fact
+
+(?)(PHP)Course name in downloaded filename for download.php
 

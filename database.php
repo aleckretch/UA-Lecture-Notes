@@ -124,7 +124,7 @@ class Database
 	*/
 	public static function createUser( $netID )
 	{
-		$username = strtolower( $netID );
+		$username = Database::sanitizeData( strtolower( $netID ) );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Users( username ) values( :username )" );
 		$stmt->bindParam( "username" , $username );
@@ -139,6 +139,9 @@ class Database
 	*/
 	public static function createCourse( $name, $semester, $instructor )
 	{
+		$name = self::sanitizeData( $name );
+		$semester = self::sanitizeData( $semester );
+		$instructor = self::sanitizeData( $instructor );
 		$args = array( $name, $semester, $instructor );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Course( name,semester,instructor ) values( ? , ? , ? )" );
@@ -195,7 +198,7 @@ class Database
 	*/
 	public static function getUserId( $netID )
 	{
-		$args = array( strtolower( $netID ) );
+		$args = array( self::sanitizeData( strtolower( $netID ) ) );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT id FROM Users WHERE username=?" );
 		$stmt->execute( $args );
@@ -213,6 +216,7 @@ class Database
 	*/
 	public static function searchCourses( $searchFor )
 	{
+		$searchFor = Database::sanitizeData( $searchFor );
 		$args = array( $searchFor . "%" , "%" . $searchFor . "%");
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT * FROM Course WHERE name LIKE ? OR instructor LIKE ? ORDER BY semester DESC,instructor ASC" ); 
@@ -226,6 +230,7 @@ class Database
 	*/
 	public static function searchCoursesByProfessor( $searchFor )
 	{
+		$searchFor = Database::sanitizeData( $searchFor );
 		$args = array( $searchFor . "%" );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT * FROM Course WHERE instructor LIKE ? ORDER BY semester DESC,instructor ASC" );
@@ -400,6 +405,31 @@ class Database
 		$stmt->execute( $args );
 		$user = $stmt->fetch();
 		return ( isset( $user['userID'] ) );
+	}
+
+	/*
+		Returns a list of uploaders for a course with the courseID provided.
+		Each entry in the array has a id field that represent the id of the user(not the netid)
+	*/
+	public static function getUploadersForCourse( $courseID )
+	{
+		$args = array( $courseID, Uploader::getName() );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT userID AS id FROM Account WHERE courseID=? AND accountType=?" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Returns the user information for the user with the id provided.
+	*/
+	public static function getUserData( $userID )
+	{
+		$args = array( $userID );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Users WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->fetch();	
 	}
 }
 ?>
