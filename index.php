@@ -1,11 +1,13 @@
 <?php
 	require_once "./database.php";
 	require_once "./session.php";
+/*
 	if ( !Session::userLoggedIn() )
 	{
 		header( "Location: login.php" );
 		exit();
 	}
+	*/
 ?>
 <!doctype html>
 <html>
@@ -120,6 +122,10 @@
 				$('.autoComplete_div').html("");
 				return;
 			}
+			
+			$.ajax()
+			
+			
 			var html = "";
 			var xhttp = new XMLHttpRequest();
 			// anonymous callback will execute upon server response
