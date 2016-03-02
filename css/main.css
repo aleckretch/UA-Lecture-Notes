@@ -266,16 +266,20 @@ footer#foot1{
 	
 	.main-content main{
 	margin-left:12em; 
-    margin-right:10em;
+    	margin-right:10em;
 	}
-	.topleft img{
+	div.topleft{
 	position: relative;
 	left: 115px;
 	bottom: 150px;
-	display:none;
-	}
-	div.float:hover + .topleft img{
+	width:20px;
+	height:20px;
 	display:block;
+	opacity: 0.0;
+	}
+	div.topleft:hover{
+	background: url('../images/delete_pdf.png');
+	opacity: 1.0;
 	}
 	div.rightDiv
 	{
