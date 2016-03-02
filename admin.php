@@ -63,7 +63,7 @@ if ( isset( $_GET['course'] ) )
 			</p>
 			</header>
 			<main>
-				<div>
+				<div class='leftDiv'>
 			<?php
 				//show a list of accounts that can upload
 				//form to add an account to the list
@@ -77,12 +77,11 @@ if ( isset( $_GET['course'] ) )
 					{
 						continue;
 					}
-					echo "<div>${data['username']} - <a href='form.php?remove=${$course}&removed=${id}'>X</a></div>";
+					echo "<div>${data['username']} - <a title='Remove uploader' href='form.php?remove=${course}&removed=${id}'>X</a></div>";
 				}
 			?>
 				</div>
-				<br><br>
-				<div>
+				<div class='rightDiv'>
 				<!-- Change index.php to php script for handling adding a user to uploader list -->
 					<div>Add Uploader</div>
 					<form method='POST' action='form.php?uploader=yes'>

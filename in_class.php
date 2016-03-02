@@ -11,8 +11,8 @@
 	//if the user is not logged in then redirect
 	if ( !Session::userLoggedIn() )
 	{
-//		header( "Location: login.php" );
-//		exit();
+		header( "Location: login.php" );
+		exit();
 	}
 
 	$token = Session::token();
@@ -40,7 +40,7 @@
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
 	<script>
 	<?php
-		echo "var PHP_token = \"${token}\";\n";
+		echo "var PHP_token = \"{$token}\";\n";
 		echo "var PHP_course = \"{$_GET['id']}\";\n";
 	?>
 	</script>
@@ -58,16 +58,16 @@
 		<article class="main-content">
 			<header>
 			<?php
-//			$user = Database::getUserId( Session::user() );
-//			$account = Database::getAccount( $user, $searchId );
-//			if ( $account !== NULL && $account->canUpload() )
-//			{
+			$user = Database::getUserId( Session::user() );
+			$account = Database::getAccount( $user, $searchId );
+			if ( $account !== NULL && $account->canUpload() )
+			{
 			?>
 			<div id="uploadFrame" class="upload">
 				<a id="uploadLink" href="#">Upload Notes</a>
 			</div>
 			<?php
-//			}
+			}
 			?>
 			<p>
 			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester']; ?>

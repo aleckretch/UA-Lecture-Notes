@@ -431,5 +431,20 @@ class Database
 		$stmt->execute( $args );
 		return $stmt->fetch();	
 	}
+
+	/*
+		Removes the account for the user provided in the course provided.
+		Returns true always.
+	*/
+	public static function removeAccount( $userID, $courseID )
+	{
+		$args = array( $userID , $courseID);
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Account where userID=? and courseID=?" );
+		$stmt->execute( $args );
+		return TRUE;	
+	}
+
+
 }
 ?>
