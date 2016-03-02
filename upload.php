@@ -100,9 +100,8 @@ if ( $account === NULL || $account->canUpload() !== TRUE )
 $date = trim($_POST['date']);
 $date = date("Y-m-d", strtotime($date));
 $fileType = Config::$ALLOWED_TYPES[ $mime ];
-
-//get the filename excluding any non-alphanumeric characters
-$fileName = Database::sanitizeFileName( $_FILES['file']['name']);
+$myName = "Lecture_${date}";
+$fileName = Database::sanitizeFileName( $myName );
 $id = Database::createNote( $fileName, $fileType, $date, $course, $user );
 
 $result = true;

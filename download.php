@@ -45,13 +45,7 @@ if ( !file_exists( $path ) )
 $content = Database::getMimeFromType( $note['filetype'] );
 header("Content-type:{$content}");
 
-date_default_timezone_set('America/Phoenix');
-$phpdate = strtotime( $note[ 'lectureDate'] );
-
-//turn the unix time into a date for filename
-$mysqldate = date( 'm_d_Y', $phpdate );
-
-$fileName = "Course_${note['courseID']}_${mysqldate}";
+$fileName = $note['filename'];//"Course_${note['courseID']}_${mysqldate}";
 
 //tell the browser that the downloaded file's name should be the one in the database
 header("Content-Disposition:attachment;filename=\"${fileName}.${note['filetype']}\"");

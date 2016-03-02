@@ -11,10 +11,11 @@
 	//if the user is not logged in then redirect
 	if ( !Session::userLoggedIn() )
 	{
-		header( "Location: login.php" );
-		exit();
+//		header( "Location: login.php" );
+//		exit();
 	}
 
+	$token = Session::token();
 	$searchId = $_GET['id'];
 	$retrievedCourse = Database::getCoursebyID($searchId);
 	//if the id provided is not actually a valid course then redirect
@@ -32,12 +33,19 @@
 <!doctype html>
 <html>
 	<head>
-    <meta charset="utf-8">
-    <title>Arizona Notes</title>
+    	<meta charset="utf-8">
+    	<title>Arizona Notes</title>
 	  
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
-
+	<script>
+	<?php
+		echo "var PHP_token = \"${token}\";\n";
+		echo "var PHP_course = \"{$_GET['id']}\";\n";
+	?>
+	</script>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/upload.js"></script>
 	</head>
 	
 	<body>
@@ -50,16 +58,16 @@
 		<article class="main-content">
 			<header>
 			<?php
-			$user = Database::getUserId( Session::user() );
-			$account = Database::getAccount( $user, $searchId );
-			if ( $account !== NULL && $account->canUpload() )
-			{
+//			$user = Database::getUserId( Session::user() );
+//			$account = Database::getAccount( $user, $searchId );
+//			if ( $account !== NULL && $account->canUpload() )
+//			{
 			?>
-			<div class="upload">
-				<a href="#">Upload Notes</a>
+			<div id="uploadFrame" class="upload">
+				<a id="uploadLink" href="#">Upload Notes</a>
 			</div>
 			<?php
-			}
+//			}
 			?>
 			<p>
 			<?php echo $retrievedCourse['name'] . " - " . $retrievedCourse['semester']; ?>

@@ -17,11 +17,9 @@ front end for the back end->
 
 (TEST)Sanitize input going into database
 
+(TEST)Change back download.php to work with old filename, put suggested filename into database for future proofing
+
 (HTML/CSS)Test the pages in different browsers, look for bugs
-
-(HTML/CSS)Add style for delete buttons for files in in_class.php
-
-(HTML/CSS)Upload modal for when upload button is clicked on in in_class.php( use in_class_mockup.html for prototype)
 
 (PHP)Show some kind of message if there are no note files on in_class.php
 
@@ -33,7 +31,19 @@ front end for the back end->
 (PHP)Handle form submit for adding a course
 	If the instructor netid is not in the database then add them to it before giving them an instructor account
 
-(?)(PHP)Admin panel for adding account as instructor for a course after the fact
+Trey and Alec admins
 
-(?)(PHP)Course name in downloaded filename for download.php
+Instructors should be able to hover over a file and x shows up to allow them to delete
+
+(Javascript)Upload button change to upload form on click
+	Clean up look
+	Add hidden input with current date
+	Look into not having submit button?
+
+multiple pages for notes files
+
+Add CSRF token somehow to x buttons for removing uploaders, currently uses GET
+
+error messages page
+
 

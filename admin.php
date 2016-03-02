@@ -13,6 +13,7 @@ if ( !Session::userLoggedIn() )
 	exit();
 }
 
+$token = Session::token();
 if ( isset( $_GET['course'] ) )
 {
 	//show the admin page for instructors
@@ -76,7 +77,7 @@ if ( isset( $_GET['course'] ) )
 					{
 						continue;
 					}
-					echo "<div>${data['username']} - <a href='#'>X</a></div>";
+					echo "<div>${data['username']} - <a href='form.php?remove=${$course}&removed=${id}'>X</a></div>";
 				}
 			?>
 				</div>
@@ -84,9 +85,10 @@ if ( isset( $_GET['course'] ) )
 				<div>
 				<!-- Change index.php to php script for handling adding a user to uploader list -->
 					<div>Add Uploader</div>
-					<form method='POST' action='index.php'>
+					<form method='POST' action='form.php?uploader=yes'>
 						NetID: <br><input type='text' name='user' /><br>
 						<input type='hidden' name='course' value='<?php echo "${course}";?>'/>
+						<input type='hidden' name='token' value='<?php echo "${token}";?>'/>
 						<input type='submit' value='Add'/><br>
 					</form>
 				</div>
@@ -143,11 +145,12 @@ else
 					//	course semester field
 					//
 				?>
-					<form method='POST' action='index.php'>
+					<form method='POST' action='form.php?course=yes'>
 						Course Name: <br><input type='text' name='name' placeholder='CSC 335'/><br>
 						Semester: <br><input type='text' name='semester' placeholder='Spring 2016'/><br>
 						Instructor: <br><input type='text' name='instructor'/><br>
 						Instructor NetID: <br><input type='text' name='netid' /><br>
+						<input type='hidden' name='token' value='<?php echo "${token}";?>'/>
 						<input type='submit' value='Add Course'/><br>
 					</form>
 				</div>
