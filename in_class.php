@@ -80,7 +80,13 @@
 			<?php foreach ($notes as $note) {
 			?>
 					<div class="float"><a href="download.php?id=<?php echo $note['id']?>"><img src="images/pdf.png" alt="" height="150" width=auto></a>
+				<?php
+				if ( $account !== NULL && $account->canDelete() )
+				{
+				?>
 				<div title='Remove File' class="topleft" onclick='<?php echo "location.href=\"form.php?note=${note['id']}\"" ?>'></div>
+				<?php
+				}?>
 				<p><?php echo $note['lectureDate']; ?></p></div>
 				<?php } ?>
 			</main>
