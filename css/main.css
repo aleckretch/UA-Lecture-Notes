@@ -268,7 +268,15 @@ footer#foot1{
 	margin-left:12em; 
     margin-right:10em;
 	}
-	
+	.topleft img{
+	position: relative;
+	left: 115px;
+	bottom: 150px;
+	display:none;
+	}
+	div.float:hover + .topleft img{
+	display:block;
+	}
 	div.rightDiv
 	{
 		float: right;
