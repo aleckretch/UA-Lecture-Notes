@@ -277,10 +277,16 @@ footer#foot1{
 	display:block;
 	opacity: 0.0;
 	}
-	div.topleft:hover{
+
+	div.topleft{
 	background: url('../images/delete_pdf.png');
 	opacity: 1.0;
 	}
+
+	div.topleft:hover{
+		cursor: pointer;
+	}
+
 	div.rightDiv
 	{
 		font-family: 'MiloOT-Bold';
