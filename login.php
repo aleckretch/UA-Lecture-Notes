@@ -27,7 +27,8 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 	//if the return value from the curl was false, then something went wrong with the request and no response was received
 	if ( $response === false )
 	{
-		echo "Bad request";
+		$message = urlencode( "Something went wrong with logging in." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 	
@@ -53,23 +54,29 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 		else
 		{
 			//the username received isn't in the whitelist of users, so show them an error
-			echo "The NetID {$response[ 1 ]} does not have permission to view this page.";
+			$message = urlencode( "{$response[ 1 ]} does not have permission to view this page." );
+			header( "Location: error.php?error=${message}" );
+			exit();
 		}
 	}
 	else
 	{
 		//the response showed an invalid ticket, show an error
-		echo "Could not login via webauth.";
+		$message = urlencode( "A problem went wrong with logging in." );
+		header( "Location: error.php?error=${message}" );
+		exit();
 	}
 }
 else if ( Session::userLoggedIn() )
 {	
-	echo "Logged in";
 	header( "Location: index.php" );
 	exit();
 }
 else
 {
-	die( "Default case reached" );
+	$message = urlencode( "Default case reached in login.php script." );
+	Database::logError( "${message}\n", false );
+	header( "Location: error.php?error=${message}" );
+	exit();
 }
 

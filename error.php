@@ -1,3 +1,11 @@
+<?php
+	require_once "./database.php";
+	$error = "";
+	if ( isset( $_GET['error'] ) )
+	{
+		$error = $_GET['error'];
+	}
+?>
 <!doctype html>
 <html>
 	<head>
@@ -18,27 +26,9 @@
 		
 		<article class="main-content">
 			<header>
-			<div class="upload">
-				<a href="#">Upload Notes</a>
-			</div>
-			<p>
-			Name - Semester
-			</p>
-			<p>
-			Instructor
-			</p>
+				<p>Oops, something went wrong!</p>
+				<div class='leftDiv'><?php echo Database::sanitizeData( $error );?></div>
 			</header>
-			<main>
-
-			</main>
 		</article>
-		
-		<footer id="foot1">
-		<p>The University of Arizona | All contents copyright &copy; 2016. Arizona Board of Regents</p>
-	</footer>
-	
-	
 	</body>
-	
-	
-</html>
+	</html>

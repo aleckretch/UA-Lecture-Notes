@@ -22,25 +22,54 @@ if ( !Session::userLoggedIn() )
 	exit();
 }
 
-if ( isset( $_GET['course'] ) )
+if ( isset( $_GET['searchKey'] ) )
+{
+	if ( trim( $_GET['searchKey'] ) === "" )
+	{
+		die( "[]" );
+	}
+	$searchKey = $_GET['searchKey'];
+	$arrayOfCourses = Database::searchCourses($searchKey);
+	$JSONArray = '['; //begin JSONArray string
+	foreach($arrayOfCourses as $record) {
+		$id = $record['id'];
+		$courseName = $record['name'];
+		$semester = $record['semester'];
+		$instructor = $record['instructor'];
+
+		$JSONArray = $JSONArray . '{ "courseName": "' . $courseName . '",';
+		$JSONArray = $JSONArray . '"id": "' . $id . '",';
+		$JSONArray = $JSONArray . '"semester": "' . $semester . '",';
+		$JSONArray = $JSONArray . '"instructor": "' . $instructor . '"';
+		$JSONArray = $JSONArray . '},';
+	}
+	$JSONArray = rtrim($JSONArray, ","); //remove last comma
+	$JSONArray = $JSONArray . ']'; //end JSONArray string
+	echo $JSONArray; //echo for use in AJAX in index.html
+	exit();
+}
+else if ( isset( $_GET['course'] ) )
 {
 	//a new course is being created
 	if ( !Session::getAdmin() )
 	{
-		header( "Location: index.php?error=admin" );
+		$message = urlencode( "You do not have permission to add a course." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	$needed = array( "token" , "name" , "semester" , "instructor" , "netid" );
 	if ( !checkParams( $needed, $_POST ) )
 	{
-		header( "Location: index.php?error=param" );
+		$message = urlencode( "A parameter is missing from the form submitted." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	if ( !Session::verifyToken( $_POST['token'] ) )
 	{
-		header( "Location: index.php?error=token" );
+		$message = urlencode( "The token provided does not match." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -61,27 +90,31 @@ else if ( isset( $_GET['uploader'] ) )
 	$needed = array( "token" , "course" , "user" );
 	if ( !checkParams( $needed, $_POST ) )
 	{
-		header( "Location: index.php?error=param" );
+		$message = urlencode( "A parameter is missing from the form submitted." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	if ( !Session::verifyToken( $_POST['token'] ) )
 	{
-		header( "Location: index.php?error=token" );
+		$message = urlencode( "The token provided does not match." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	$courseInfo = Database::getCourseByID( $_POST['course'] );
 	if ( !isset( $courseInfo[ 'id'] ) )
 	{
-		header( "Location: index.php?error=course" );
+		$message = urlencode( "The course provided is not valid." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	$myAcc = Database::getAccount( Database::getUserId( Session::user() ) , $courseInfo['id'] );
 	if ( $myAcc === NULL || !( $myAcc->canPromote() ) )
 	{
-		header( "Location: index.php?error=promote" );
+		$message = urlencode( "You do not have permission to add uploaders for this course." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -94,7 +127,8 @@ else if ( isset( $_GET['uploader'] ) )
 	$acc = Database::getAccount( $id , $_POST['course'] );
 	if ( $acc !== NULL && $acc->canUpload() )
 	{
-		header( "Location: index.php?error=user" );
+		$message = urlencode( "The uploader you want to add is already an uploader." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 	Database::createAccount( $id, $_POST['course'] , Uploader::getName() );
@@ -102,19 +136,13 @@ else if ( isset( $_GET['uploader'] ) )
 	exit();
 }
 else if ( isset( $_GET['remove'] ) && isset( $_GET['removed'] ) )
-{
-	//make sure user can promote for the course provided
-	//courseID in in remove, userID of uploader to remove is in removed
-	//make sure the course provided in remove is an actual course
-	//make sure the user provided in removed is an actual user with an account for the course provided that is an uploader
-
-	//TODO: after security checks, use database api to remove uploader
-	
+{	
 	$courseInfo = Database::getCourseByID( $_GET['remove'] );
 	//if the course with the id provided is not in the database then redirect and exit
 	if ( !isset( $courseInfo[ 'id'] ) )
 	{
-		header( "Location: index.php?error=course" );
+		$message = urlencode( "The course provided is not valid." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -122,7 +150,8 @@ else if ( isset( $_GET['remove'] ) && isset( $_GET['removed'] ) )
 	//if the current user does not have an account with promote/demote permissions then redirect and exit
 	if ( $myAcc === NULL || !( $myAcc->canPromote() ) )
 	{
-		header( "Location: index.php?error=promote" );
+		$message = urlencode( "You do not have permission to remove uploaders for this course." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -130,7 +159,8 @@ else if ( isset( $_GET['remove'] ) && isset( $_GET['removed'] ) )
 	//if the user provided in removed does not have an account that can upload then redirect and exit
 	if ( $acc === NULL || !$acc->canUpload() )
 	{
-		header( "Location: index.php?error=user" );
+		$message = urlencode( "The uploader you want to remove is not an uploader." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -144,7 +174,8 @@ else if ( isset( $_GET['note'] ) )
 	$note = Database::getNotesByID( $_GET['note'] );
 	if ( !isset( $note['id'] ) )
 	{
-		header( "Location: index.php?error=note" );
+		$message = urlencode( "The file you want to remove does not exist." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -152,15 +183,18 @@ else if ( isset( $_GET['note'] ) )
 	//if the current user does not have an account with file delete permissions then redirect and exit
 	if ( $myAcc === NULL || !( $myAcc->canDelete() ) )
 	{
-		header( "Location: index.php?error=delete" );
+		$message = urlencode( "You do not have permission to remove files for this course." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	if ( !Database::removeNoteFile( $note['id'] ) )
 	{
-		header( "Location: index.php?error=file" );
-		exit();			
+		$message = urlencode( "The file could not be deleted." );
+		header( "Location: error.php?error=${message}" );
+		exit();		
 	}
+
 	Database::removeNoteWithID( $note['id'] );
 	header( "Location: admin.php?course=${note['courseID']}" );
 	exit();

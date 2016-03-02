@@ -17,28 +17,26 @@ front end for the back end->
 
 (DONE)Handle form submit for adding a course
 
-(TEST)M-D-Y for lecture notes downloaded
+(DONE)Clean up backend style for instructor page in admin.php
+
+(TEST //)M-D-Y for lecture notes downloaded
+
+(TEST //)Change back download.php to work with old filename, put suggested filename into database for future proofing
+
+(TEST //)Handle removing uploaded notes in php
 
 (TEST)Sanitize input going into database
 
-(TEST)Change back download.php to work with old filename, put suggested filename into database for future proofing
-
-(TEST)Handle removing uploaded notes in php
-
 (TEST)Trey and Alec admins
+
+(TEST)error messages page
 
 (HTML/CSS)Test the pages in different browsers, look for bugs
 
 (PHP)Show some kind of message if there are no note files on in_class.php
 
-(PHP/HTML/CSS)Clean up backend style for instructor page in admin.php
-
 Instructors should be able to hover over a file and x shows up to allow them to delete
 
 multiple pages for notes files
-
-(X)Add CSRF token somehow to x buttons for removing uploaders, currently uses GET
-
-error messages page
 
 

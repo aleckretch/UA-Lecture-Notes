@@ -271,12 +271,24 @@ footer#foot1{
 	
 	div.rightDiv
 	{
+		font-family: 'MiloOT-Bold';
 		float: right;
+		color: grey;
 	}
 
 	div.leftDiv
-	{
+	{	
+		font-family: 'MiloOT-Bold';
 		float: left;
+		color: grey;
+	}
+
+	div.divHead
+	{
+		font-weight: bold;
+		font-size: 1.5em;	
+		border-bottom: solid grey 1px;
+		color:red;
 	}
 	
 	

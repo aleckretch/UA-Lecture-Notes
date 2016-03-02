@@ -23,7 +23,8 @@ if ( isset( $_GET['course'] ) )
 	$retrievedCourse = Database::getCoursebyID($course);
 	if ( !isset( $retrievedCourse['id'] ) )
 	{
-		header( "Location: index.php" );
+		$message = urlencode( "The course provided is not valid." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -31,7 +32,8 @@ if ( isset( $_GET['course'] ) )
 	$account = Database::getAccount( $user, $course );
 	if ( $account === NULL || $account->canPromote() !== TRUE )
 	{
-		header( "Location: index.php" );
+		$message = urlencode( "You do not have permission to add uploaders for this course." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 ?>
@@ -64,6 +66,7 @@ if ( isset( $_GET['course'] ) )
 			</header>
 			<main>
 				<div class='leftDiv'>
+				<div class='divHead'>Uploaders</div>
 			<?php
 				//show a list of accounts that can upload
 				//form to add an account to the list
@@ -82,8 +85,7 @@ if ( isset( $_GET['course'] ) )
 			?>
 				</div>
 				<div class='rightDiv'>
-				<!-- Change index.php to php script for handling adding a user to uploader list -->
-					<div>Add Uploader</div>
+					<div class='divHead'>Add Uploader</div>
 					<form method='POST' action='form.php?uploader=yes'>
 						NetID: <br><input type='text' name='user' /><br>
 						<input type='hidden' name='course' value='<?php echo "${course}";?>'/>
@@ -103,7 +105,8 @@ else
 	//redirect if the user is not an admin
 	if ( !Session::getAdmin() )
 	{
-		header( "Location: index.php" );
+		$message = urlencode( "You do not have permission to view this page." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 ?>
@@ -136,18 +139,10 @@ else
 			</header>
 			<main>
 				<div>
-				<!-- Change index.php to php script for handling adding a user to uploader list -->
-				<?php
-					//need instructor name field
-					//	instructor netid field
-					//	course name field
-					//	course semester field
-					//
-				?>
 					<form method='POST' action='form.php?course=yes'>
 						Course Name: <br><input type='text' name='name' placeholder='CSC 335'/><br>
 						Semester: <br><input type='text' name='semester' placeholder='Spring 2016'/><br>
-						Instructor: <br><input type='text' name='instructor'/><br>
+						Instructor Name: <br><input type='text' name='instructor'/><br>
 						Instructor NetID: <br><input type='text' name='netid' /><br>
 						<input type='hidden' name='token' value='<?php echo "${token}";?>'/>
 						<input type='submit' value='Add Course'/><br>

@@ -24,31 +24,31 @@ if ( !Session::userLoggedIn() )
 //if error code is not set on file upload array then do not allow upload to continue into database
 if ( !isset($_FILES['file']['error']) )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "File not provided\n" );
+	$message = urlencode( "The file did not upload." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
 if ( !isset( $_POST['course'] ) )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "Course not provided\n" );
+	$message = urlencode( "A parameter is missing from the form submitted." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
 //if the file was not uploaded correctly then do not allow the upload to continue into database
 if ( $_FILES['file']['error'] !== UPLOAD_ERR_OK )  
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "Upload failed with error {$_FILES['file']['error']}\n" );
+	$message = urlencode( "The file did not upload because of {$_FILES['file']['error']}." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
 //if the file uploaded is larger then 20mb don't allow the upload to continue into database
 if ( $_FILES['file']['size'] > 20000000) 
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "Could not upload file, file too large\n" );
+	$message = urlencode( "The file did not upload because the file is too large." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
@@ -60,29 +60,29 @@ $mime = finfo_file( $finfo, $_FILES['file']['tmp_name'] );
 //if the mime type is not a PDF file, then ignore the file
 if ( Database::verifyFileType( $mime ) !== TRUE )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "{$mime} is not an allowed type.\n" );
+	$message = urlencode( "{$mime} is not an allowed type." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
 if ( !isset( $_POST['token'] ) )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "Token not passed\n" );
+	$message = urlencode( "No token was provided." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
 if ( !isset( $_POST['date'] ) )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "Lecture date is missing\n" );
+	$message = urlencode( "No date was provided." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
 if ( !Session::verifyToken( $_POST['token'] ) )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "Request could not be handled, token does not match\n" );
+	$message = urlencode( "The token provided does not match." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 	
 }
@@ -92,9 +92,9 @@ $user = Database::getUserId( Session::user() );
 $account = Database::getAccount( $user, $course );
 if ( $account === NULL || $account->canUpload() !== TRUE )
 {
-	//TODO: show error message to user in some form when in production
-	Database::logError( "User does not have permission to upload files for this course.\n" );
-	exit();	
+	$message = urlencode( "You do not have permission to upload files for this course." );
+	header( "Location: error.php?error=${message}" );
+	exit();
 }
 
 $date = trim($_POST['date']);
@@ -119,7 +119,6 @@ if ( $result === true )
 	{
 		Database::logError( "File with {$id} already exists\n" );
 		exit();
-
 	}
 	
 	//move the uploaded file to the uploads folder under the name of its id
@@ -128,7 +127,7 @@ if ( $result === true )
 	//change the permissions on the uploaded file in the uploads folder to RW-R--R--
 	chmod( $dir, 0644 );	
 
-	header( "Location: index.html" );
+	header( "Location: in_class.php?id=${course}" );
 	exit();
 }
 else

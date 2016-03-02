@@ -18,7 +18,8 @@ if ( !Session::userLoggedIn() )
 //get the id provided as a get parameter
 if ( !isset( $_GET['id'] ) )
 {
-	header( "Location: index.php" );
+	$message = urlencode( "You are missing the file id." );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 
@@ -26,8 +27,9 @@ if ( !isset( $_GET['id'] ) )
 $note = Database::getNotesByID( $_GET['id'] );
 if ( !isset( $note['id'] ) )
 {
-	//TODO: show error message page when in production
-	die( "File does not exist" );
+	$message = urlencode( "The file with the id provided does not exist." );
+	header( "Location: error.php?error=${message}" );
+	exit();
 }
 
 //if the note with the id provided is not an actual file, error out
@@ -36,9 +38,9 @@ if ( !file_exists( $path ) )
 {
 	//Log the error so that the server knows a file is missing for a valid note
 	Database::logError( "File '{$path}' could not be found\n", false );
-
-	//TODO: show some error message to the user when in production
-	die( "File could not be found" );
+	$message = urlencode( "The file could not be found." );
+	header( "Location: error.php?error=${message}" );
+	exit();
 }
 
 //tell browser to expect the mime type of whatever type the file is

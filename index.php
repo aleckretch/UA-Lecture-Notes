@@ -64,44 +64,6 @@
 </body>
 <script>
 	$(document).ready(function(){
-		var result =[
-			{
-			id:0,
-			subject:'CSC',
-			crourse_num: 352,
-			crouse_name:'Object-Oriented Principles',
-			term: 'Spring 2016',
-				instr:'Patrick Homer'
-			},
-			{
-			id:1,
-			subject:'CSC',
-			crourse_num: 352,
-			crouse_name:'Object-Oriented Principles',
-			term: 'Spring 2016'	,
-				instr:'Patrick Homer'
-				
-			},
-			{
-			id:3,
-			subject:'AFAS',
-			crourse_num: 202,
-			crouse_name:'Object-Oriented Principles',
-			term: 'Spring 2016',
-				instr:'Patrick Homer'
-				
-			},
-			{
-			id:4,
-			subject:'ISTA',
-			crourse_num: 151,
-			crouse_name:'Object-Oriented Principles',
-			term: 'Spring 2016'	,
-			instr:'Patrick Homer'
-				
-			}
-			
-		];
 		function highlightMatch(searchKey, str) { 
 			var result = str;
 			str = str.toLowerCase(); // probably should've used regexp, oh well
@@ -113,7 +75,6 @@
 			}
 			return result;
 		}
-		//console.log(result);
 		
 		$('#search_input').keyup(function() {
 			var keywords =$('#search_input').val();
@@ -151,7 +112,7 @@
 				}
 			}
 			// use GET
-			xhttp.open("GET", "courseSearch.php?searchKey=" + keywords, true);
+			xhttp.open("GET", "form.php?searchKey=" + keywords, true);
 			xhttp.send();
 			
 		});

@@ -187,7 +187,7 @@ class Database
 	{
 		$args = array( $courseID );
 		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Notes WHERE courseID=?" );
+		$stmt = $conn->prepare( "SELECT * FROM Notes WHERE courseID=? ORDER BY lectureDate DESC,id DESC" );
 		$stmt->execute( $args );
 		return $stmt->fetchAll();
 	}
