@@ -117,7 +117,9 @@ if ( $result === true )
 	$dir = Database::getUploadPath( $id , $fileType );
 	if ( file_exists( $dir ) )
 	{
-		Database::logError( "File with {$id} already exists\n" );
+		$message = urlencode( "The file already exists on the server." );
+		Database::logError( "${message}\n" , false );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 	
@@ -132,7 +134,9 @@ if ( $result === true )
 }
 else
 {
-	Database::logError( "Failed to create uploads folder\n" );
+	$message = urlencode( "Could not create uploads folder." );
+	Database::logError( "${message}\n" , false );
+	header( "Location: error.php?error=${message}" );
 	exit();
 }
 

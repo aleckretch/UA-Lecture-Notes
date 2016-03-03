@@ -280,11 +280,12 @@ footer#foot1{
 
 	div.topleft{
 	background: url('../images/delete_pdf.png');
-	opacity: 1.0;
+	opacity: 0.85;
 	}
 
 	div.topleft:hover{
 		cursor: pointer;
+		opacity: 1.0;
 	}
 
 	div.rightDiv

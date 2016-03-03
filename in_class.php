@@ -4,7 +4,8 @@
 
 	if ( !isset( $_GET['id'] ) )
 	{
-		header( "Location: index.php" );
+		$message = urlencode( "Missing the course number." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -21,7 +22,8 @@
 	//if the id provided is not actually a valid course then redirect
 	if ( !isset( $retrievedCourse['id'] ) )
 	{
-		header( "Location: index.php" );
+		$message = urlencode( "The course provided is not valid." );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 

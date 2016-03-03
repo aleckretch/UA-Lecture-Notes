@@ -21,22 +21,22 @@ front end for the back end->
 
 (DONE)Instructors should be able to hover over a file and x shows up to allow them to delete
 
-(TEST //)M-D-Y for lecture notes downloaded
+(DONE)Show some kind of message if there are no note files on in_class.php
 
-(TEST //)Change back download.php to work with old filename, put suggested filename into database for future proofing
+(DONE)M-D-Y for lecture notes downloaded
 
-(TEST //)Handle removing uploaded notes in php
+(DONE)Change back download.php to work with old filename, put suggested filename into database for future proofing
+
+(DONE)Handle removing uploaded notes in php
+
+(DONE)error messages page
 
 (TEST)Sanitize input going into database
 
 (TEST)Trey and Alec admins
 
-(TEST)error messages page
-
 (HTML/CSS)Test the pages in different browsers, look for bugs
 
-(PHP)Show some kind of message if there are no note files on in_class.php
-
-multiple pages for notes files
+(Alex/Jamie)multiple pages for notes files
 
 
