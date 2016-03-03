@@ -95,36 +95,6 @@
 				<p><?php echo $note['lectureDate']; ?></p></div>
 				<?php } }?>
 
-
-
-				<!-- <div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>2/3/16</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>2/2/16</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>2/1/16</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/31/16</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/30/16</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/29/16</p></div>
-				
-				<div class="space"> &nbsp; </div>
-				
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>2/3/15</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>2/2/15</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>2/1/15</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/31/15</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/30/15</p></div>
-				<div class="float"><a href="#"><img src="images/pdf.png" alt="" height="150" width=auto></br>
-				<p>1/29/15</p></div> -->
-
 			</main>
 		</article>
 		
