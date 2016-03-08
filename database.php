@@ -193,6 +193,19 @@ class Database
 	}
 
 	/*
+		Returns the notes uploaded for a specific course given by courseID, the offset(page*notes/page), and notes/page
+		Returns an empty array if there are no notes for the course provided.
+	*/
+	public static function getNotesByCourseLimited( $courseID, $offset, $note_limit )
+	{
+		$args = array( $courseID);
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Notes WHERE courseID=? ORDER BY lectureDate DESC,id DESC LIMIT $offset, $note_limit");
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
 		Returns the id of the user with the netID provided.
 		Returns -1 if there is no user with that netID.
 	*/

@@ -84,8 +84,20 @@
 			if (empty($notes)) {
 				echo "No notes found for this course.";
 			} else {
-			foreach ($notes as $note) {
-			?>
+			
+				$note_limit = 12; // 12 notes per page
+				$note_count = count($notes);
+				if ( isset($_GET['page'])) {
+					$page = $_GET['page'] + 1; // should pages be 0-based?
+					$offset = $note_limit * $page;
+				} else {
+					$page = 0;
+					$offset = 0;
+				}
+				$notes_left = $note_count - ($page * $note_limit);
+				$current_notes = Database::getNotesByCourseLimited($searchId, $offset, $note_limit);
+				foreach ($current_notes as $note) {
+				?>
 				<div class="float"><a href="download.php?id=<?php echo $note['id']?>"><img src="images/pdf.png" alt="" height="150" width=auto></a>
 				<?php
 				if ( $account !== NULL && $account->canDelete() )
@@ -95,7 +107,20 @@
 				<?php
 				}?>
 				<p><?php echo $note['lectureDate']; ?></p></div>
-				<?php } }?>
+				
+				<?php }
+				echo "<br>";       
+				if( $page > 0 ) {
+           	 		$last = $page - 2;
+            		echo "<a href = \"in_class.php?id=$searchId&page=$last\">Last 12 Records</a> |";
+            		echo "<a href = \"in_class.php?id=$searchId&page=$page\">Next 12 Records</a>";
+         		}else if( $page == 0 ) {
+            		echo "<a href = \"in_class.php?id=$searchId&page=$page\">Next 12 Records</a>";
+         		}else if( $notes_left < $note_limit ) {
+            		$last = $page - 2;
+           			echo "<a href = \"in_class.php?id=$searchId&page = $last\">Last 12 Records</a>";
+         }
+         }?>
 
 			</main>
 		</article>

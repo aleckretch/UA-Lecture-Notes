@@ -125,5 +125,17 @@ INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, us
 INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 2, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
 INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 3, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
 INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 4, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 5, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 6, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 7, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 8, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 9, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 10, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 11, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 12, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 13, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 14, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 15, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
+INSERT INTO Notes( id, filetype, filename, lectureDate, uploadDate, courseID, userID) VALUES( 16, "pdf", "test", CURDATE(), CURDATE(), 3, 1);
 /*REMOVE ABOVE WHEN IN PRODUCTION*/
 
