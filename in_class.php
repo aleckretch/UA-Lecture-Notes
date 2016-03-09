@@ -97,7 +97,7 @@
 					$page = 0;
 					$offset = 0;
 				}
-				$notes_left = $note_count - ($page * $note_limit);
+				
 				$current_notes = Database::getNotesByCourseLimited($searchId, $offset, $note_limit);
 				if ( empty( $current_notes ) )
 				{
@@ -115,21 +115,33 @@
 				}?>
 				<p><?php echo $note['lectureDate']; ?></p></div>
 				
-				<?php }
-				echo "<br>";       
-				if( $page > 0 ) {
-           	 		$last = $page - 2;
-            		echo "<a href = \"in_class.php?id=$searchId&page=$last\">Last 12 Records</a> |";
-            		echo "<a href = \"in_class.php?id=$searchId&page=$page\">Next 12 Records</a>";
-         		}else if( $page == 0 ) {
-            		echo "<a href = \"in_class.php?id=$searchId&page=$page\">Next 12 Records</a>";
-         		}else if( $notes_left < $note_limit ) {
-            		$last = $page - 2;
-           			echo "<a href = \"in_class.php?id=$searchId&page=$last\">Last 12 Records</a>";
-         }
-         }?>
 
-			</main>
+			<?php } 
+			echo "</main>";
+			echo "<div class='perNext'>";
+			$last = $page;
+			$perClass = "";
+			$nextClass = "";
+			if( $page > 0 ) 
+			{
+           	 		$last = $page - 2;
+         		}
+			else if( $page == 0 ) 
+			{
+				$perClass = "disabled";
+         		}
+			
+			if( count( $current_notes ) < $note_limit ) 
+			{
+				$nextClass = "disabled";
+        		}
+
+			?>
+			<a class="per <?php echo $perClass;?>" href = "in_class.php?id=<?php echo $searchId;?>&page=<?php echo $last;?>" > &#10094; Prev </a> -
+			<a class="next <?php echo $nextClass;?>" href = "in_class.php?id=<?php echo $searchId;?>&page=<?php echo $page;?>" >Next &#10095;</a>
+			<?php
+			echo "</div>";
+         }?>
 		</article>
 		
 		<footer id="foot1">

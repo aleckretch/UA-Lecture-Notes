@@ -483,6 +483,8 @@
  	margin: 0 auto;
 
  	text-align: center;
+	
+	clear: both;
 
  }
 
@@ -504,4 +506,11 @@
 
  	color: #AB0520;
 
+ }
+
+ .disabled
+ {
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.6;
  }
