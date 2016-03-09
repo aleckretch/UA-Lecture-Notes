@@ -1,315 +1,507 @@
 
- 
-		  .clearfix:after {
+ .clearfix:after {
 
-			  content: "";
-			  display: table;
-			  clear: both;
-		  }
-		  body{
-			  padding: 0;
-			  margin: 0;
-			
+ 	content: "";
 
-			  background: url('../images/image.png');
+ 	display: table;
 
-	  	          background-size:cover;
-			  
-		  }
-		  .darken_div{
-			  position: absolute;
-			  width: 100%;
-			  height:100%;
-			  background: rgba(0,0,0,0.4);
-			  z-index: -1;
-		  }
-			 
-		  .header_div{
-			
-		  }
-		  
-		  .logo_div img{
-			  width:100%;
-		  }
-		 
-		  .logo_div {
-			  
-			 width:300px;
-			  margin-left: 35px;
-			  padding-top: 35px;
-			  
-			  
-		  }
-		
-		  .logo_div .logo_left,
-		  .logo_div .logo_right
-		  {
-			  float: left;
-			  font-family: MiloOT-Bold;
-			  color:white;
-			  font-size: 3.3em;
-			  text-align: left;
-			  
-		  }
-		  .logo_div .logo_right >div{
-			  
-			 height:50px;
-			   margin: 0 auto;
-			  padding-left: 20px;
-			  line-height: 50px;
-			  
-		  }
-		  .logo_div .logo_left{
-			  width:100px;
-		  }
-		  .logo_div .logo_right{
-			    width:200px;
-		  }
-		  
-		  
-		  
-		  
-		  
-		  .description_div{
-			  margin-top:10%;
-			   text-align: center;
-			  /*border:1px solid white;*/
-		  }
-		  .description_div a{
-			  
-			  font-size: 2.3em;
-			  font-family: MiloOT-LightIta;
-			  color: white;
-		  }
-		  
-		  
-		  
-		  
-		  
-		  
-		  .searchbar_div{
-			  margin: 0 auto;
-			  margin-top: 60px;
-			  background: white;
-			  min-width: 300px;
-			  width:60%;
-			  height:60px;
-		
-		  }
-		  .search_icon_div{
-			  height: 60px;
-			  width:60px;
-			 
-			  float: left;
-			  	position:relative;  
-		  }
-		   .search_icon_div img{
-			  
-			  	height: 50%;
-			 
-			   position: absolute;
-    			margin: auto;
-    			top: 0;
-			   left: 0;
-			   right: 0;
-			   bottom: 0;
-			   
-			   
-		  }
-		  .search_input_div{
-			 
-			  float:left;
-			  height: 60px;
-			
-			  width:calc(100% - 60px);
-			 
-		  }
-		  .search_input_div input{
-			  height: 100%;
-			  line-height: 50px;
-			  border: 0px ;
-			  padding: 0px;
-			  margin-left: 0px;
-			  width:100%;
-			  -webkit-appearance:none;
-			  outline: none;
-			  font-size: 2em;
-			  font-family: MiloOT-LightIta;
-			  color:#AB0520;
-		  }
-		  
-		  .autoComplete_div{
-			  font-family: MiloOT-Thin;
-			   margin: 0 auto;
-			   background: white;
-			  min-width: 300px;
-			  width:60%;
-			 border:1px solid gray;
-			  
-		  }
-		  .autoComplete-item{
-			 /* height:40px;*/
-			   border-bottom:1px solid gray;
-			  cursor: pointer;
-			  position: relative;
-		  }
-		  .autoComplete-item:after{
-			  content: "";
-			  display: block;
-			  position: absolute;
-			  top:0px;
-			  height:5px;
-			  width:0%;
-			  height:100%;
-			  background:#AB0520;
-		  }
-		  .autoComplete-item:hover:after{
-			  width:10px;
-			  transition: width ease-in 0.3s;
-		  }
-		   .autoComplete-item:hover  span{
-			 padding-left: 15px;
-			
-			  transition: padding-left ease-in 0.3s;
-		  }
-		  .autoComplete-item .title{
-			  padding: 5px;
-			  display: block;
-			  font-size: 1.3em; 
-			  white-space: nowrap;
-		  }
-		   .autoComplete-item .instr{
-			     padding-left: 5px;
-			   	padding-bottom: 5px;
-			   display: block;
-			  font-size: 0.9em;
-			   white-space: nowrap
-		  }
+ 	clear: both;
 
-footer#foot1{
-	color:white;
-	position: absolute;
-	bottom: 0px;
-	margin: 3px;
-	padding-left:25px;
-	font-family: MiloOT-Thin;
-}
+ }
 
+ body {
 
+ 	padding: 0;
 
+ 	margin: 0;
 
-/*
+ 	background: url('../images/image.png');
+
+ 	background-size: cover;
+
+ }
+
+ .darken_div {
+
+ 	position: absolute;
+
+ 	width: 100%;
+
+ 	height: 100%;
+
+ 	background: rgba(0, 0, 0, 0.4);
+
+ 	z-index: -1;
+
+ }
+
+ .header_div {} .logo_div img {
+
+ 	width: 100%;
+
+ }
+
+ .logo_div {
+
+ 	width: 300px;
+
+ 	margin-left: 35px;
+
+ 	padding-top: 35px;
+
+ }
+
+ .logo_div .logo_left,
+
+ .logo_div .logo_right {
+
+ 	float: left;
+
+ 	font-family: MiloOT-Bold;
+
+ 	color: white;
+
+ 	font-size: 3.3em;
+
+ 	text-align: left;
+
+ }
+
+ .logo_div .logo_right >div {
+
+ 	height: 50px;
+
+ 	margin: 0 auto;
+
+ 	padding-left: 20px;
+
+ 	line-height: 50px;
+
+ }
+
+ .logo_div .logo_left {
+
+ 	width: 100px;
+
+ }
+
+ .logo_div .logo_right {
+
+ 	width: 200px;
+
+ }
+
+ .description_div {
+
+ 	margin-top: 10%;
+
+ 	text-align: center;
+
+ 	/*border:1px solid white;*/
+
+ }
+
+ .description_div a {
+
+ 	font-size: 2.3em;
+
+ 	font-family: MiloOT-LightIta;
+
+ 	color: white;
+
+ }
+
+ .searchbar_div {
+
+ 	margin: 0 auto;
+
+ 	margin-top: 60px;
+
+ 	background: white;
+
+ 	min-width: 300px;
+
+ 	width: 60%;
+
+ 	height: 60px;
+
+ }
+
+ .search_icon_div {
+
+ 	height: 60px;
+
+ 	width: 60px;
+
+ 	float: left;
+
+ 	position: relative;
+
+ }
+
+ .search_icon_div img {
+
+ 	height: 50%;
+
+ 	position: absolute;
+
+ 	margin: auto;
+
+ 	top: 0;
+
+ 	left: 0;
+
+ 	right: 0;
+
+ 	bottom: 0;
+
+ }
+
+ .search_input_div {
+
+ 	float: left;
+
+ 	height: 60px;
+
+ 	width: calc(100% - 60px);
+
+ }
+
+ .search_input_div input {
+
+ 	height: 100%;
+
+ 	line-height: 50px;
+
+ 	border: 0px;
+
+ 	padding: 0px;
+
+ 	margin-left: 0px;
+
+ 	width: 100%;
+
+ 	-webkit-appearance: none;
+
+ 	outline: none;
+
+ 	font-size: 2em;
+
+ 	font-family: MiloOT-LightIta;
+
+ 	color: #AB0520;
+
+ }
+
+ .autoComplete_div {
+
+ 	font-family: MiloOT-Thin;
+
+ 	margin: 0 auto;
+
+ 	background: white;
+
+ 	min-width: 300px;
+
+ 	width: 60%;
+
+ 	border: 1px solid gray;
+
+ }
+
+ .autoComplete-item {
+
+ 	/* height:40px;*/
+
+ 	border-bottom: 1px solid gray;
+
+ 	cursor: pointer;
+
+ 	position: relative;
+
+ }
+
+ .autoComplete-item:after {
+
+ 	content: "";
+
+ 	display: block;
+
+ 	position: absolute;
+
+ 	top: 0px;
+
+ 	height: 5px;
+
+ 	width: 0%;
+
+ 	height: 100%;
+
+ 	background: #AB0520;
+
+ }
+
+ .autoComplete-item:hover:after {
+
+ 	width: 10px;
+
+ 	transition: width ease-in 0.3s;
+
+ }
+
+ .autoComplete-item:hover span {
+
+ 	padding-left: 15px;
+
+ 	transition: padding-left ease-in 0.3s;
+
+ }
+
+ .autoComplete-item .title {
+
+ 	padding: 5px;
+
+ 	display: block;
+
+ 	font-size: 1.3em;
+
+ 	white-space: nowrap;
+
+ }
+
+ .autoComplete-item .instr {
+
+ 	padding-left: 5px;
+
+ 	padding-bottom: 5px;
+
+ 	display: block;
+
+ 	font-size: 0.9em;
+
+ 	white-space: nowrap
+
+ }
+
+ footer#foot1 {
+
+ 	color: white;
+
+ 	position: absolute;
+
+ 	bottom: 0px;
+
+ 	margin: 3px;
+
+ 	padding-left: 25px;
+
+ 	font-family: MiloOT-Thin;
+
+ }
+
+ /*
 	Above  is everyhing on home page search page
 	below is everything on result page
 */
 
+ .main-content {
 
+ 	background-color: #fff;
 
-	.main-content {
-    	background-color: #fff;
-    	margin: 0 3%;
-    	height: 450px;
-    	padding:1%;
-	}
-	
-	.main-logo{
-	
-		padding-top:20px;
-		padding-left: 20px;
-	}
-	
-	.upload {
-	text-align: right;
-	font-family: 'MiloOT-Bold';
-	}
-	
-	.upload a {
-	color: red;
-	text-decoration: none;
-	font-size:1.1em;
-	}
-	
-	article p {
-    color: red;
-	font-family: 'MiloOT-Bold';
-	font-size: 1.6em;
-	margin-top: 0;
-	margin-bottom: .1em;
-	}
-	
-	article p + p{
-    color: grey;
-	font-family: 'MiloOT-Bold';
-	font-size: 1em;
-	line-height: 1;
-	}
-	
-	div.float{
-	float:left;
-	margin-bottom: 1em;
-	}
-	
-	div.space {
-  	margin: 0 5%;
-  	text-align: center;
-	}
-	
-	div.float p {
-	text-align: center;
-	line-height: 0;
-	font-size: 1em;
-	font-family: 'MiloOT-Bold';
-	}
-	
-	div.float a {
-	text-decoration: none;
-	}
-	
-	.main-content main{
-	margin-left:12em; 
-    	margin-right:10em;
-	}
-	div.topleft{
-	position: relative;
-	left: 115px;
-	bottom: 150px;
-	width:20px;
-	height:20px;
-	display:block;
-	opacity: 0.0;
-	}
+ 	margin: 0 3%;
 
-	div.topleft{
-	background: url('../images/delete_pdf.png');
-	opacity: 0.85;
-	}
+ 	height: 450px;
 
-	div.topleft:hover{
-		cursor: pointer;
-		opacity: 1.0;
-	}
+ 	padding: 1%;
 
-	div.rightDiv
-	{
-		font-family: 'MiloOT-Bold';
-		float: right;
-		color: grey;
-	}
+ }
 
-	div.leftDiv
-	{	
-		font-family: 'MiloOT-Bold';
-		float: left;
-		color: grey;
-	}
+ .main-logo {
 
-	div.divHead
-	{
-		font-weight: bold;
-		font-size: 1.5em;	
-		border-bottom: solid grey 1px;
-		color:red;
-	}
-	
-	
+ 	padding-top: 20px;
 
+ 	padding-left: 20px;
+
+ }
+
+ .upload {
+
+ 	text-align: right;
+
+ 	font-family: 'MiloOT-Bold';
+
+ }
+
+ .upload a {
+
+ 	color: #AB0520;
+
+ 	text-decoration: none;
+
+ 	font-size: 1.1em;
+
+ }
+
+ article p {
+
+ 	color: #AB0520;
+
+ 	font-family: 'MiloOT-Bold';
+
+ 	font-size: 1.6em;
+
+ 	margin-top: 0;
+
+ 	margin-bottom: .1em;
+
+ }
+
+ article p + p {
+
+ 	color: grey;
+
+ 	font-family: 'MiloOT-Bold';
+
+ 	font-size: 1em;
+
+ 	line-height: 1;
+
+ }
+
+ div.float {
+
+ 	float: left;
+
+ 	margin-bottom: 1em;
+
+ }
+
+ div.space {
+
+ 	margin: 0 5%;
+
+ 	text-align: center;
+
+ }
+
+ div.float p {
+
+ 	text-align: center;
+
+ 	line-height: 0;
+
+ 	font-size: 1em;
+
+ 	font-family: 'MiloOT-Bold';
+
+ }
+
+ div.float a {
+
+ 	text-decoration: none;
+
+ }
+
+ .main-content main {
+
+ 	margin-left: 12em;
+
+ 	margin-right: 10em;
+
+ }
+
+ div.topleft {
+
+ 	position: relative;
+
+ 	left: 115px;
+
+ 	bottom: 150px;
+
+ 	width: 20px;
+
+ 	height: 20px;
+
+ 	display: block;
+
+ 	opacity: 0.0;
+
+ }
+
+ div.topleft {
+
+ 	background: url('../images/delete_pdf.png');
+
+ 	opacity: 0.85;
+
+ }
+
+ div.topleft:hover {
+
+ 	cursor: pointer;
+
+ 	opacity: 1.0;
+
+ }
+
+ div.rightDiv {
+
+ 	font-family: 'MiloOT-Bold';
+
+ 	float: right;
+
+ 	color: grey;
+
+ }
+
+ div.leftDiv {
+
+ 	font-family: 'MiloOT-Bold';
+
+ 	float: left;
+
+ 	color: grey;
+
+ }
+
+ div.divHead {
+
+ 	font-weight: bold;
+
+ 	font-size: 1.5em;
+
+ 	border-bottom: solid grey 1px;
+
+ 	color: #AB0520;
+
+ }
+
+ .perNext {
+
+ 	width: 100%;
+
+ 	margin: 0 auto;
+
+ 	text-align: center;
+
+ }
+
+ .perNext .per,
+
+ .perNext .next {
+
+ 	color: #AB0520;
+
+ 	text-decoration: none;
+
+ 	font-family: 'MiloOT-Bold';
+
+ 	font-size: 1.2em;
+
+ }
+
+ .perNext .next {
+
+ 	color: #AB0520;
+
+ }
