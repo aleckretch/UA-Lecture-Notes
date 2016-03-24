@@ -10,7 +10,8 @@ abstract class Account
 	//This returns true if the account can delete files for a course
 	abstract public function canDelete();
 
-	//This returns an Account object with particular permissions given a certain accountType
+	//This returns an Account object with particular permissions given a certain accountType string
+	//The default account object returned is Student if the user is a student or the accountType string was not recognized
 	public static function factory( $accountType )
 	{
 		if ( Instructor::getName() === $accountType )

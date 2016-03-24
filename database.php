@@ -211,7 +211,8 @@ class Database
 	*/
 	public static function getUserId( $netID )
 	{
-		$args = array( self::sanitizeData( strtolower( $netID ) ) );
+		$netID =  self::sanitizeData( strtolower( $netID ) );
+		$args = array( $netID );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT id FROM Users WHERE username=?" );
 		$stmt->execute( $args );

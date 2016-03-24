@@ -22,7 +22,7 @@
 	//if the id provided is not actually a valid course then redirect
 	if ( !isset( $retrievedCourse['id'] ) )
 	{
-		$message = urlencode( "The course provided is not valid." );
+		$message = urlencode( "The course provided does not exist" );
 		header( "Location: error.php?error=${message}" );
 		exit();
 	}
@@ -62,6 +62,7 @@
 			<?php
 			$user = Database::getUserId( Session::user() );
 			$account = Database::getAccount( $user, $searchId );
+			//if the current user can upload notes, add a link to allow them to upload a file
 			if ( $account !== NULL && $account->canUpload() )
 			{
 			?>
@@ -89,7 +90,7 @@
 				$note_count = count($notes);
 				if ( isset($_GET['page'])) 
 				{
-					$page = $_GET['page'] + 1; // should pages be 0-based?
+					$page = $_GET['page'] + 1;
 					$offset = $note_limit * $page;
 				} 
 				else 
@@ -107,6 +108,7 @@
 				?>
 				<div class="float"><a href="download.php?id=<?php echo $note['id']?>"><img src="images/pdf.png" alt="" height="150" width=auto></a>
 				<?php
+				//if the current user can delete notes files then add a delete link to every notes icon
 				if ( $account !== NULL && $account->canDelete() )
 				{
 				?>
@@ -122,17 +124,22 @@
 			$last = $page;
 			$perClass = "";
 			$nextClass = "";
+			//if past the first page, then add previous page link
 			if( $page > 0 ) 
 			{
+				//-2 since pages begin at -1 and are added 1 to
            	 		$last = $page - 2;
          		}
 			else if( $page == 0 ) 
 			{
+				//since this is the first page, give the previous link a disabled class so it does not do anything
 				$perClass = "disabled";
          		}
 			
 			if( count( $current_notes ) < $note_limit ) 
 			{
+				//if there are less than the total possible notes on this page then it is the last page
+				//give the next page link a disabled class so it does nothing when clicked
 				$nextClass = "disabled";
         		}
 
