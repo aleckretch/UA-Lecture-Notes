@@ -308,7 +308,7 @@
 
  	background-color: #fff;
 
- 	margin: 0 3%;
+ 	margin: 0 2%;
 
  	height: 450px;
 
@@ -319,6 +319,8 @@
  .main-logo {
 
  	padding-top: 20px;
+ 	
+ 	padding-bottom: 10px;
 
  	padding-left: 20px;
 
@@ -365,6 +367,8 @@
  	font-size: 1em;
 
  	line-height: 1;
+ 	
+ 	margin-bottom: 15px;
 
  }
 
