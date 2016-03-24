@@ -489,6 +489,8 @@
  	text-align: center;
 	
 	clear: both;
+	
+	padding-top: 5px;
 
  }
 
@@ -503,6 +505,8 @@
  	font-family: 'MiloOT-Bold';
 
  	font-size: 1.2em;
+ 	
+ 	padding: 5px;
 
  }
 
