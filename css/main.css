@@ -315,6 +315,18 @@
  	padding: 1%;
 
  }
+@media only screen and (max-width: 650px){
+ .main-content {
+ 	margin: 0 3%;
+ 	height: 750px;
+ }
+ .darken_div{
+    height: 1000px;
+ }
+ footer#foot1 {
+ 	bottom: -290px;
+ }
+}
 
  .main-logo {
 
