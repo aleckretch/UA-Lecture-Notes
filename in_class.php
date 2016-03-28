@@ -51,6 +51,10 @@
 	</head>
 	
 	<body>
+		<form id='removalForm' method='post' action='form.php'>
+			<input id='removeToken' type='hidden' name='token' value="<?php echo $token;?>">
+			<input id='removedValue' type='hidden' name='note'>
+		</form>
 		<div class="darken_div"></div>
 		<div class="main-logo">
 			<a href="index.php">
@@ -112,7 +116,7 @@
 				if ( $account !== NULL && $account->canDelete() )
 				{
 				?>
-				<div title='Remove File' class="topleft" onclick='<?php echo "location.href=\"form.php?note=${note['id']}\"" ?>'></div>
+				<div title='Remove File' class="topleft" onclick='removeNote( <?php echo $note['id']; ?>)'></div>
 				<?php
 				}?>
 				<p><?php echo $note['lectureDate']; ?></p></div>

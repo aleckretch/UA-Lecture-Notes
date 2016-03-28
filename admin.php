@@ -36,6 +36,7 @@ if ( isset( $_GET['course'] ) )
 		header( "Location: error.php?error=${message}" );
 		exit();
 	}
+	$token = Session::token();
 ?>
 <!doctype html>
 <html>
@@ -45,10 +46,16 @@ if ( isset( $_GET['course'] ) )
 	  
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
-
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/upload.js"></script>
 	</head>
 	
 	<body>
+		<form id='removalForm' method='post' action='form.php'>
+			<input id='removeToken' type='hidden' name='token' value="<?php echo $token;?>">
+			<input id='removedValue' type='hidden' name='removed'>
+			<input id='removedCourse' type='hidden' name='remove' value='<?php echo $_GET['course'];?>'>
+		</form>
 		<div class="darken_div"></div>
 		<div class="main-logo">
 			<a href="index.php">
@@ -80,7 +87,7 @@ if ( isset( $_GET['course'] ) )
 					{
 						continue;
 					}
-					echo "<div>${data['username']} - <a title='Remove uploader' href='form.php?remove=${course}&removed=${id}'>X</a></div>";
+					echo "<div>${data['username']} - <a title='Remove uploader' onclick='return removeNote( ${id} );' href='#'>X</a></div>";
 				}
 			?>
 				</div>

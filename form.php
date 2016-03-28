@@ -135,9 +135,16 @@ else if ( isset( $_GET['uploader'] ) )
 	header( "Location: admin.php?course=${courseInfo['id']}" );
 	exit();
 }
-else if ( isset( $_GET['remove'] ) && isset( $_GET['removed'] ) )
+else if ( isset( $_POST['remove'] ) && isset( $_POST['removed'] ) && isset( $_POST['token'] ) )
 {	
-	$courseInfo = Database::getCourseByID( $_GET['remove'] );
+	if ( !Session::verifyToken( $_POST['token'] ) )
+	{
+		$message = urlencode( "The token provided does not match." );
+		header( "Location: error.php?error=${message}" );
+		exit();
+	}
+
+	$courseInfo = Database::getCourseByID( $_POST['remove'] );
 	//if the course with the id provided is not in the database then redirect and exit
 	if ( !isset( $courseInfo[ 'id'] ) )
 	{
@@ -155,7 +162,7 @@ else if ( isset( $_GET['remove'] ) && isset( $_GET['removed'] ) )
 		exit();
 	}
 
-	$acc = Database::getAccount( $_GET['removed'] , $_GET['remove'] );
+	$acc = Database::getAccount( $_POST['removed'] , $_POST['remove'] );
 	//if the user provided in removed does not have an account that can upload then redirect and exit
 	if ( $acc === NULL || !$acc->canUpload() )
 	{
@@ -164,14 +171,21 @@ else if ( isset( $_GET['remove'] ) && isset( $_GET['removed'] ) )
 		exit();
 	}
 
-	Database::removeAccount( $_GET['removed'] , $_GET['remove'] );
+	Database::removeAccount( $_POST['removed'] , $_POST['remove'] );
 	header( "Location: admin.php?course=${courseInfo['id']}" );
 	exit();
 }
-else if ( isset( $_GET['note'] ) )
+else if ( isset( $_POST['note'] ) && isset( $_POST['token'] ) )
 {
+	if ( !Session::verifyToken( $_POST['token'] ) )
+	{
+		$message = urlencode( "The token provided does not match." );
+		header( "Location: error.php?error=${message}" );
+		exit();
+	}
+
 	//attempts to remove the note with the id provided in $_GET['note']
-	$note = Database::getNotesByID( $_GET['note'] );
+	$note = Database::getNotesByID( $_POST['note'] );
 	if ( !isset( $note['id'] ) )
 	{
 		$message = urlencode( "The file you want to remove does not exist." );

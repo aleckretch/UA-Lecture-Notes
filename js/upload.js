@@ -1,3 +1,11 @@
+//updates the removal form and submits to allow more secure form of deleting notes as well as removing users as uploaders for a course
+function removeNote( noteID )
+{
+	$( "#removedValue" ).val( noteID );
+	$( "#removalForm" ).submit();
+	return false;
+}
+
 $( document ).ready( function()
 {
 	$( "#uploadLink" ).click( function() 
