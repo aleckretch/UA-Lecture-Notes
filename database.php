@@ -198,11 +198,23 @@ class Database
 	*/
 	public static function getNotesByCourseLimited( $courseID, $offset, $note_limit )
 	{
+		$offset = intval( $offset );
+		$note_limit = intval( $note_limit );
 		$args = array( $courseID);
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT * FROM Notes WHERE courseID=? ORDER BY lectureDate DESC,id DESC LIMIT $offset, $note_limit");
 		$stmt->execute( $args );
 		return $stmt->fetchAll();
+	}
+
+	/*
+		Setups the database, should only be run from startup.php
+	*/
+	public static function setup()
+	{
+		$conn = self::connect();
+		$sql = file_get_contents( "lecture.sql" );
+		$conn->exec( $sql );
 	}
 
 	/*

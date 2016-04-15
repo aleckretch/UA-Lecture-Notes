@@ -1,8 +1,10 @@
+/*
 DROP DATABASE IF EXISTS LECTURE;
 CREATE DATABASE LECTURE   
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
 USE LECTURE;
+*/
 
 /*
 	This holds the netid for the users.
